@@ -1,30 +1,53 @@
 class Solution {
 public:
-    bool isValid(string &s1,string &s2){
-        unordered_set<char> st;
-        for(auto i : s2){
-            if(st.find(i) != st.end()) return false;
-            for(auto j : s1){
-                if(i == j) return false;
+    int maxi=0;
+    bool check(string &s1, string &s2){
+        string s= s1+s2;
+        map<char, int>m;
+        
+        for(int i=0;i<s.length();i++){
+            m[s[i]]++;
+            if(m[s[i]]>1){
+                return false;
             }
-            st.insert(i);
         }
+        
         return true;
     }
-    int f(int i,string curr,vector<string> &arr,unordered_map<string,int> &map){
-        if(i == arr.size()){
-            return curr.size();
+    int solve(int i , string s, vector<string>&arr, unordered_map<string, int>&mp){
+        
+        
+        if(i>=arr.size()){
+            
+            int size= s.size();
+            if(maxi<size){
+                maxi=size;
+            }
+            return maxi;
+            
         }
-        if(map.find(curr) != map.end()) return map[curr];
-        int notTake = f(i+1,curr,arr,map);
-        int take = 0;
-        if(isValid(curr,arr[i])){
-            take = f(i+1,curr+arr[i],arr,map);
+        
+        
+        if(mp.find(s) != mp.end()) return mp[s];
+        
+        int notTake= solve(i+1,s, arr, mp);
+        
+        int take=-1;
+        if(check(s,arr[i])){
+            take=solve(i+1, s+arr[i],arr,mp);
         }
-        return map[curr] = max(take,notTake);
+        
+        return max(take, notTake);
     }
+    
+    
     int maxLength(vector<string>& arr) {
-        unordered_map<string,int> map;
-        return f(0,"",arr,map);
+        string s="";
+        
+        //vector<int>dp( arr.size()+1,-1);
+        unordered_map<string, int>mp;
+        return solve(0, s, arr,mp);
+        
+        
     }
 };
