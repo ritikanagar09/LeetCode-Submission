@@ -1,25 +1,17 @@
 class Solution {
 public:
     string intToRoman(int num) {
+        
+        int n[]= {1000, 900, 500 ,400, 100,90, 50,40, 10, 9 , 5, 4, 1};
+        string rom[]= {"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+        
         string s="";
-        
-        vector<int>integer{1,4,5,9,10,40,50,90,100,400,500,900,1000};
-        
-        vector<string>roman{"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"};
-  
-         int last=integer.size()-1;
-        
-        while(last>=0)
-        {
-            int index=num/integer[last];
-            num=num%integer[last];
+        for(int i=0;i<13;i++){
             
-            while(index>0)
-            {
-                index--;
-                s+=roman[last];
+            while(num>=n[i]){
+                s+=rom[i];
+                num-=n[i];
             }
-            last--;
         }
         
         return s;
