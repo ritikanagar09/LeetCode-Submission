@@ -5,8 +5,10 @@ private:
 public:
     // Adds a number into the data structure.
     void addNum(int num) {
-        if(firstQ.empty() || (firstQ.top()>num)) firstQ.push(num); // if it belongs to the smaller half
-        else secQ.push(num); 
+        if(firstQ.empty() || (firstQ.top()>num)) 
+            firstQ.push(num); // if it belongs to the smaller half
+        else 
+            secQ.push(num); 
         
         // rebalance the two halfs to make sure the length difference is no larger than 1
         if(firstQ.size() > (secQ.size()+1))
@@ -23,7 +25,15 @@ public:
 
     // Returns the median of current data stream
     double findMedian() {
-        if(firstQ.size() == secQ.size()) return firstQ.empty()?0:( (firstQ.top()+secQ.top())/2.0);
-        else return (firstQ.size() > secQ.size())? firstQ.top():secQ.top(); 
+        if(firstQ.size() == secQ.size()) 
+            if(firstQ.empty())
+                return 0;
+            else 
+                return (firstQ.top()+secQ.top())/2.0;
+        else 
+            if(firstQ.size() > secQ.size())
+                return firstQ.top();
+            else
+                return secQ.top(); 
     }
 };
