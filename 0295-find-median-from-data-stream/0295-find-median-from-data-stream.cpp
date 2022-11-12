@@ -1,39 +1,60 @@
 class MedianFinder {
-private:
-    priority_queue<int> firstQ; // max_heap for the first half
-    priority_queue<int, std::vector<int>, std::greater<int> > secQ; // min_heap for the second half
 public:
-    // Adds a number into the data structure.
-    void addNum(int num) {
-        if(firstQ.empty() || (firstQ.top()>num)) 
-            firstQ.push(num); // if it belongs to the smaller half
-        else 
-            secQ.push(num); 
+    priority_queue<double> max_pq;
+    priority_queue<double, vector<double>, greater<double> > min_pq;      
+    MedianFinder() {
         
-        // rebalance the two halfs to make sure the length difference is no larger than 1
-        if(firstQ.size() > (secQ.size()+1))
-        {
-            secQ.push(firstQ.top());
-            firstQ.pop();
-        }
-        else if(firstQ.size()+1<secQ.size())
-        {
-            firstQ.push(secQ.top());
-            secQ.pop();
+    }
+    
+    void addNum(int num) {
+            if(min_pq.empty() && max_pq.empty()){
+                max_pq.push(num);
+            } 
+            else if(!max_pq.empty() && num <= max_pq.top()){
+                max_pq.push(num);
+            } 
+            else{
+                min_pq.push(num);
+            }
+        
+        
+        if(abs(max_pq.size() - min_pq.size() > 1)){ 
+                if(max_pq.size() > min_pq.size()){
+                    min_pq.push(max_pq.top());
+                    max_pq.pop();
+                } else {
+                    max_pq.push(min_pq.top());
+                    min_pq.pop();
+                }
         }
     }
-
-    // Returns the median of current data stream
+    
     double findMedian() {
-        if(firstQ.size() == secQ.size()) 
-            if(firstQ.empty())
-                return 0;
-            else 
-                return (firstQ.top()+secQ.top())/2.0;
-        else 
-            if(firstQ.size() > secQ.size())
-                return firstQ.top();
-            else
-                return secQ.top(); 
+        
+        double median;
+            
+
+            if(max_pq.size() > min_pq.size()){ 
+                median= max_pq.top();
+            } else if(max_pq.size() < min_pq.size()){
+                median= min_pq.top();
+            } else {
+                
+                if(max_pq.empty()){
+                    median=0;
+                } else{
+                    median = (max_pq.top() + min_pq.top())/2.0;
+                }
+                
+            }
+        
+         return median;
     }
 };
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
