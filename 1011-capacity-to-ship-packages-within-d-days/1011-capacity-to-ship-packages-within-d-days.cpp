@@ -45,14 +45,14 @@ public:
             if(numDays(weights, mid, maxi) > days){
                 low=mid+1;
             }else if(numDays(weights, mid, maxi) <= days){
-                ans=min(ans,mid);
+                
                 high=mid-1;
             }
             
         }
         
         
-        return ans;
+        return low;
             
     }
 };
