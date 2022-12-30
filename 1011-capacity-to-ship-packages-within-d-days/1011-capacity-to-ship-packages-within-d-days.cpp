@@ -5,26 +5,24 @@ public:
         int sum=0;
         int i=0;
         
-        // for(int i=0;i<weights.size();i++){
-        //     sum+=weights[i];
-        //     if(sum==mid){
-        //         count++;
-        //         sum=0;
-        //     }else if(sum>mid){
-        //         sum=weights[i];
-        //         count++;
-        //     }
-        // }
-        
-        
-        while(i<weights.size() and sum<=mid){
-                sum+=weights[i++];
-                if(sum>mid){
-                    i--;
-                    parts++;
-                    sum=0;
-                }
+        for(int i=0;i<weights.size();i++){
+            sum+=weights[i];
+           
+            if(sum>mid){
+                sum=weights[i];
+                parts++;
             }
+        }
+        
+        
+//         while(i<weights.size() and sum<=mid){
+//                 sum+=weights[i++];
+//                 if(sum>mid){
+//                     i--;
+//                     parts++;
+//                     sum=0;
+//                 }
+//             }
         
         return parts;
     }
