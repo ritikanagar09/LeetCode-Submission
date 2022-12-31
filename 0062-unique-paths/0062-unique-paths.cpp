@@ -7,7 +7,7 @@ public:
             return 1;
         }
         
-        if(i>m || j>n){
+        if(i>=m || j>=n){
             return 0;
         }
         
@@ -22,7 +22,7 @@ public:
     }
     int uniquePaths(int m, int n) {
         
-        vector<vector<int>>dp(m+1,vector<int>(n+1,-1));
+        vector<vector<int>>dp(m,vector<int>(n,-1));
         return solve(0,0,m,n,dp);
     }
 };
