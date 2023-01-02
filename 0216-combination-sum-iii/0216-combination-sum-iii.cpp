@@ -4,22 +4,18 @@ public:
     
         
         if(n==0 && path.size()==t ){
-            cout<<"///"<<endl;
             ans.push_back(path);
             return;
         }
         
-        if(n<0 || k<0){
+        if(n<0 || k<0 || indx>9){
             return ;
         }
         
-       // cout<<n<<" "<<k<<endl;
-        
-        for(int j=indx;j<=9;j++){
-            path.push_back(j);
-            solve(j+1, n-j,k-1,path,ans,t);
-            path.pop_back();
-        }
+        path.push_back(indx);
+        solve(indx+1, n-indx, k-1, path, ans,t);
+        path.pop_back();
+        solve(indx+1, n, k, path, ans,t);
      
     }
     vector<vector<int>> combinationSum3(int k, int n) {
