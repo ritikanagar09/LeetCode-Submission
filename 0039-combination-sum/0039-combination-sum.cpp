@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void solve(int i,int &sum, vector<int>& candidates, int target, vector<int>&path, vector<vector<int>>&ans, int n ){
+    void solve(int i,int sum, vector<int>& candidates, int target, vector<int>&path, vector<vector<int>>&ans, int n ){
         if(sum==target){
             ans.push_back(path);
             return;
@@ -24,7 +24,7 @@ public:
         vector<int>path;
         vector<vector<int>>ans;
         int sum=0;
-        solve(0, sum, candidates, target, path ,ans,n);
+        solve(0, 0, candidates, target, path ,ans,n);
         return ans;
     }
 };
