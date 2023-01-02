@@ -1,37 +1,29 @@
 class Solution {
 public:
-    bool f1(string word){
-        //lower uppercase
-        
-        for(int i=0;i<word.length();i++){
-            char ch=word[i];
-            bool flag=(ch>=65 && ch<=90);
-            if(!flag){
-                return false;
-            }
-        }
-        
-        return true;
-    }
-    
-    
-    
-
     bool f3(string word){
         //lower uppercase
-        
-        for(int i=0;i<word.length();i++){
+        int cnt=0;
+        for(int i=1;i<word.length();i++){
             char ch=word[i];
+            if(isupper(ch))cnt++;
+            // if(i!=0){
+            //     if(isupper(ch)){
+            //         return false;
+            //     }
+            // }
             
-            if(i!=0){
-                if(isupper(ch)){
-                    return false;
-                }
+        }
+        if(cnt==0 && islower(word[0])){
+            return true;
+        }else if(cnt==word.length()-1){
+            if(islower(word[0])){
+                return false;
             }
             
-            // else if(!islower(ch)){
-            //     return false;
-            // }
+        }else {
+            if(cnt!=0){
+                return false;
+            }
         }
         
         return true;
@@ -41,6 +33,6 @@ public:
         
         int n=word.length();
 
-        return (f1(word) || f3(word) );
+        return (f3(word) );
     }
 };
