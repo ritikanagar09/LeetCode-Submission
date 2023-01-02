@@ -15,8 +15,11 @@ public:
     }
     
     
-     bool f2(string word){
-        //all lower case
+    
+
+    bool f3(string word){
+        //lower uppercase
+        
         for(int i=0;i<word.length();i++){
             char ch=word[i];
             
@@ -26,20 +29,9 @@ public:
                 }
             }
             
-            
-            
-        }
-          return true;
-     }
-
-    bool f3(string word){
-        //lower uppercase
-        
-        for(int i=0;i<word.length();i++){
-            char ch=word[i];
-            if(!islower(ch)){
-                return false;
-            }
+            // else if(!islower(ch)){
+            //     return false;
+            // }
         }
         
         return true;
@@ -49,6 +41,6 @@ public:
         
         int n=word.length();
 
-        return (f1(word) || f2(word) || f3(word) );
+        return (f1(word) || f3(word) );
     }
 };
