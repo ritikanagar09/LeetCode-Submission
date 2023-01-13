@@ -1,10 +1,11 @@
 class Solution {
     vector<int> res;
-    vector<int> dfs(vector<int> adj[], int i, string& labels, int prev) {
+    vector<int> dfs(vector<int> adj[], int i, string& labels, vector<bool>&vis) {
         vector<int> v(26, 0);
+        vis[i]=true;
         for (auto j: adj[i]) {
-            if (j != prev) {
-                vector<int> temp = dfs(adj, j, labels, i);
+            if (!vis[j]) {
+                vector<int> temp = dfs(adj, j, labels, vis);
                 for (int i=0; i<26; i++) {
                     v[i] += temp[i];
                 }
@@ -14,6 +15,8 @@ class Solution {
         res[i] = v[labels[i]-'a'];
         return v;
     }
+    
+    
 public:
     vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels) {
         res = vector<int>(n, 0);
@@ -28,7 +31,8 @@ public:
             adj[v].push_back(u);
         }
         
-        dfs(adj,0,labels,-1);
+        vector<bool>vis(n,false);
+        dfs(adj,0,labels,vis);
 
    
         return res;
