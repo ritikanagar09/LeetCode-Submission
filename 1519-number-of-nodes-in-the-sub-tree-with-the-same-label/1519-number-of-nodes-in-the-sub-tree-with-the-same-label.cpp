@@ -1,32 +1,28 @@
 class Solution {
-public:
-    void dfsCountAndUpdate(int node, int prevNode, vector<vector<int>>& adjVec,
-                           string& labels, vector<int>& solution, vector<int>& freqMap) {
-        // Maintain a count of freq till now.
-        int prevCount = freqMap[labels[node] - 'a'];
-
-        freqMap[labels[node] - 'a'] += 1;
-        // Count the no. of chars in all the child subtrees.
-        for (int nextNode : adjVec[node]) {
-            if (prevNode == nextNode) continue;
-            dfsCountAndUpdate(nextNode, node, adjVec, labels, solution, freqMap);
+    vector<int> res;
+    vector<int> dfs(vector<vector<int>>& adj, int i, string& labels, int prev) {
+        vector<int> v(26, 0);
+        for (auto j: adj[i]) {
+            if (j != prev) {
+                vector<int> temp = dfs(adj, j, labels, i);
+                for (int i=0; i<26; i++) {
+                    v[i] += temp[i];
+                }
+            }
         }
-
-        solution[node] = freqMap[labels[node] - 'a'] - prevCount;
+        v[labels[i]-'a']++;
+        res[i] = v[labels[i]-'a'];
+        return v;
     }
-
+public:
     vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels) {
-         vector<vector<int>> adjVec(n, vector<int>());
-
-        for (vector<int>& edge : edges) {
-            adjVec[edge[0]].push_back(edge[1]);
-            adjVec[edge[1]].push_back(edge[0]);
+        res = vector<int>(n, 0);
+        vector<vector<int>> adj(n);
+        for (auto i: edges) {
+            adj[i[0]].push_back(i[1]);
+            adj[i[1]].push_back(i[0]);
         }
-
-        vector<int> solution(n, 0);
-        vector<int> freqMap = vector<int>(26, 0);
-        dfsCountAndUpdate(0, 0, adjVec, labels, solution, freqMap);
-
-        return solution;
+        dfs(adj, 0, labels, -1);
+        return res;
     }
 };
