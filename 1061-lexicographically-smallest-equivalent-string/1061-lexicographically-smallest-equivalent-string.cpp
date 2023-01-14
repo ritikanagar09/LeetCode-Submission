@@ -3,9 +3,9 @@ public:
     
     char dfs(char ch,unordered_map<char,vector<char>>adj,vector<int>&vis ){
        
-        for(int i=0;i<26;i++){
-            vis[ch-'a']=1;
-        }
+        
+        vis[ch-'a']=1;
+        
         char ch1=ch;
         for(char it: adj[ch]){
             if(vis[it-'a']!=1){
