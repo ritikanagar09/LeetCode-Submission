@@ -16,7 +16,7 @@ public:
             return head;
         }
         ListNode* dummy= new ListNode(0,head);//head here means -> dummy ke next me head rkh do
-        ListNode* leftprev=dummy;
+        ListNode* leftprev=dummy;//this is importtant
         ListNode* curr=head;
         
         for(int i=0;i<left-1;i++){
