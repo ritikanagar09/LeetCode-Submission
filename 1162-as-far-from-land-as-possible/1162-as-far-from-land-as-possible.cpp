@@ -5,9 +5,8 @@ public:
         int m=grid[0].size();
         
         queue<pair<int,int>>q;
+        vector<vector<int>>vis(m,vector<int>(n,-1));
         
-        //saaare 1 ko dalwado queue ke ander
-        //i.e all lands 
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==1){
@@ -19,30 +18,36 @@ public:
         if(q.size()==0 || q.size()== m*n){
             return -1;
         }
-        vector<vector<int>>visited=grid;
         
-        vector<pair<int,int>>directions={{0,1},{1,0},{-1,0},{0,-1}};
-        int dist=-1;
+        
+        int cnt=-1;
+        vector<vector<int>>dir={{0,1},{1,0},{-1,0},{0,-1}};
         while(!q.empty()){
             int size=q.size();
             
-            while(size--){
-                auto [x,y]=q.front();
+            for(int i=0;i<size;i++){
+                auto front=q.front();
+                int x=front.first;
+                int y=front.second;
+                
                 q.pop();
-                for(auto [dx,dy]: directions){
-                    int i=x+dx;
-                    int j=y+dy;
+                
+                for(auto it:dir){
+                    int dx=it[0];
+                    int dy=it[1];
                     
-                    if(i>=0 && i<n && j>=0 && j<m && visited[i][j]==0){
-                        visited[i][j]=1;
-                        q.push({i,j});
+                    if(x+dx >=0 && x+dx <n && y+dy >=0 && y+dy <m && vis[x+dx][y+dy]==-1 && grid[x+dx][y+dy]==0){
+                        q.push({x+dx,y+dy});
+                        vis[x+dx][y+dy]=1;
                     }
                 }
+                
+                
             }
             
-            dist++;//came to the next level
+            cnt++;
         }
         
-        return dist;
+        return cnt;
     }
 };
