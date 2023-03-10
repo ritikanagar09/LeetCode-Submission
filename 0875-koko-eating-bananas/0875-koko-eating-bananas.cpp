@@ -1,33 +1,52 @@
 class Solution {
 public:
-    long long getHoursToEatAll(vector<int>&piles, int bananasPerHour)
-    {
-        long long totalHours = 0;
-        for (int i = 0; i < piles.size(); i++)
-        {
-            int hoursToEatPile = ceil(piles[i] / (double)bananasPerHour);
-            totalHours += hoursToEatPile;
-        }
-        return totalHours;
-    }
-    int minEatingSpeed(vector<int>& piles, int targetHours)
-    {
-        int low = 1, high = *(max_element(piles.begin(), piles.end()));
-        int ans = -1;
-        //================================================================
-        while(low <= high)
-        {
-            int mid = low + (high - low) / 2;
-            long long hoursToEatAll = getHoursToEatAll(piles, mid);
+    int minEatingSpeed(vector<int>& piles, int h) {
+        int n=piles.size();
+        
+        int maxi=*max_element(piles.begin(),piles.end());
+        // int sum=0;
+        // for(auto i:piles){
+        //     sum+=i;
+        // }
+        
+       
+        
+        
+        int ans=maxi;
+        int low=1;
+        int high=maxi;
+        while(low<=high){
+            int hrs=0;
+            int mid=high-(high-low)/2;
             
-            if (hoursToEatAll <= targetHours)
-            {
-                ans = mid; //record the answer (this is the best we could record till curr step)
-                high = mid - 1;
+            for(int i=0;i<n;i++){
+                int x=piles[i]/mid;
+                int y=piles[i]%mid;
+                
+                hrs+=x;
+                if(y>0){
+                    hrs+=1;
+                }
             }
-            else low = mid + 1;
+            
+            if(hrs>h){
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+            
         }
-        //=================================================================
-        return ans;
+        
+        return low;
+        
+        // for(int k=1;k<=maxi;k++){
+        //     int x=sum/k;
+        //     cout<<x<<" "<<sum<<" "<<k<<endl;
+        //     if(x<h){
+        //         return k;
+        //     }
+        // }
+        
+        // return -1;
     }
 };
