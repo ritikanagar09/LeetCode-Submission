@@ -11,17 +11,30 @@
  */
 class Solution {
 public:
-    int sumNumbers(TreeNode* root) {
-        int sum = 0;
-        queue<pair<TreeNode*, int>> q;
-        q.push({root, 0});
-        while(q.size()) {
-            auto [n, cur] = q.front(); q.pop();
-            cur = cur * 10 + n -> val;
-            if(n -> left) q.push({n -> left, cur});      
-            if(n -> right) q.push({n -> right, cur});
-            if(!n -> left && !n -> right) sum += cur;   // add to total sum if we are at leaf node
+    void solve(TreeNode* root, int &totsum, int sum){
+        if(root->left==NULL && root->right==NULL){
+            int k=sum*10 +root->val;
+            sum=k;
+            cout<<sum<<endl;
+            totsum+=sum;
+            
+            return;
         }
-        return sum;
+        
+        
+        int k=sum*10 +root->val;
+        sum=k;
+        
+        if(root->left)
+            solve(root->left, totsum, sum);
+        if(root->right)
+            solve(root->right, totsum, sum);
+    }
+    int sumNumbers(TreeNode* root) {
+        
+        int totsum=0;
+        int sum=0;
+        solve(root, totsum ,sum);
+        return totsum;
     }
 };
