@@ -25,7 +25,7 @@ public:
         int n=s1.size();
         int m=s2.size();
         
-        vector<vector<int>>dp(n,vector<int>(m,0));
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
         
         for(int i=1;i<=n;i++){
             for(int j=1;j<=m;j++){
@@ -45,7 +45,7 @@ public:
         
         string s1=s;
         reverse(s.begin(),s.end());
-        return lcs(s1,s);
+        return LCS(s1,s);
         
     }
 };
