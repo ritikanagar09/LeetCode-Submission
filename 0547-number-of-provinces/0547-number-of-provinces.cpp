@@ -1,5 +1,13 @@
 class Solution {
 public:
+    /*
+    
+    SC: O(N) + 0(N)-> FOR satck space and vis vector
+    TC: o(N) + O(V+2E)
+    
+    
+    
+    */
     int n;
     void dfs(int node, vector<int>&vis,vector<vector<int>>& isConnected ){
         vis[node]=1;
