@@ -20,14 +20,14 @@ public:
         ListNode*prev=fast;
         
         head=prev;
-        ListNode*temp=fast->next;
-        fast->next=slow;
-        slow->next=temp;
-        prev=slow;
-        slow=temp;
-        if(slow)
-            fast=temp->next;
-            else fast=NULL;
+        // ListNode*temp=fast->next;
+        // fast->next=slow;
+        // slow->next=temp;
+        // prev=slow;
+        // slow=temp;
+        // if(slow)
+        //     fast=temp->next;
+        //     else fast=NULL;
         
         
         while(fast){
