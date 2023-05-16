@@ -14,31 +14,15 @@ public:
         if(head==NULL || head->next==NULL){
             return head;
         }
-        ListNode* fast =head->next;
-        ListNode* slow=head;
         
-        ListNode*prev=fast;
+        ListNode* prev=head;
+        ListNode* curr=head->next;
+        ListNode* fast=head->next->next;
         
-        head=prev;
+        head=curr;
+        curr->next=prev;
         
-        
-        while(fast){
-         
-            ListNode*temp=fast->next;
-            prev->next=fast;
-            
-            fast->next=slow;
-           
-            slow->next=temp;
-            prev=slow;
-            slow=temp;
-            if(slow)
-                fast=temp->next;
-            else fast=NULL;
-            
-            
-        }
-        
+        prev->next=swapPairs(fast);
         
         return head;
     }
