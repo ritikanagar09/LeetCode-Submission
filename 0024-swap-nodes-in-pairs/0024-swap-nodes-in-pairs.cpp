@@ -20,24 +20,15 @@ public:
         ListNode*prev=fast;
         
         head=prev;
-        // ListNode*temp=fast->next;
-        // fast->next=slow;
-        // slow->next=temp;
-        // prev=slow;
-        // slow=temp;
-        // if(slow)
-        //     fast=temp->next;
-        //     else fast=NULL;
         
         
         while(fast){
-           cout<<"///"<<endl;
+         
             ListNode*temp=fast->next;
             prev->next=fast;
-            cout<<prev->val<<endl;
-            cout<<fast->val<<endl;
+            
             fast->next=slow;
-            cout<<slow->val<<endl;
+           
             slow->next=temp;
             prev=slow;
             slow=temp;
