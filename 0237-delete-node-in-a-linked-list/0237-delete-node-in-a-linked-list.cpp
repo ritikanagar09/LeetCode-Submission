@@ -9,8 +9,13 @@
 class Solution {
 public:
     void deleteNode(ListNode* node) {
-        node->val=node->next->val;
-        node->next=node->next->next;
         
+        // abhi vali approach we are actually not deleting anything here 
+        
+        //abhi toh bss ponter hata deer hai hum 
+        
+        node->val=node->next->val;
+        
+        node->next=node->next->next;
     }
 };
