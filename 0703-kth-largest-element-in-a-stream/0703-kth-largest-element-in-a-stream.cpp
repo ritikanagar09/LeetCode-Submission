@@ -2,7 +2,7 @@ class KthLargest {
 public:
     int K;
     // priority_queue<int>pq;
-      priority_queue<int, vector<int>, greater<int>> pq;
+      priority_queue<int, vector<int>, greater<int>> pq;//stores min element first
     KthLargest(int k, vector<int>& nums) {
         K=k;
         for(int i=0;i<nums.size();i++){
@@ -10,7 +10,7 @@ public:
         }
         
         while(pq.size()>k){
-            pq.pop();
+            pq.pop();// here we are maintaining k elements in queue and remving sabse chote elements ko..bcoz kth largest nikaalne we doesnt require chote elemnets jo k se chote hai 
         }
     }
     
