@@ -24,6 +24,9 @@ public:
         
         sort(v.begin(),v.end(),comp);
         
+        // ye acha solution nhi h re 
+        // n long n se kam hona chahiye 
+        // ye ushe barabar hai 
         
         vector<int>ans;
         
