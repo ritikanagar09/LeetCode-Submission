@@ -14,40 +14,27 @@ public:
         if(head==NULL){
             return head;
         }
-       int cnt=0;
-       ListNode* temp=head;
-       while(temp!=NULL){
-            cnt++;
-            temp=temp->next;
-       
-       }
-       
-        int node=cnt-n;
-        if(node==0){
+        ListNode* dummy=head;
+        ListNode* fast=dummy;
+        ListNode* slow=dummy;
+        
+        while(n--){
+            fast=fast->next;
+        }
+        
+        if(fast==NULL){
             head=head->next;
             return head;
         }
-        temp=head;
-        
-        int pntr=0;
-        
-        while(pntr<node-1){
-            temp=temp->next;
-            pntr++;
+        while(fast->next!=NULL){
+            slow=slow->next;
+            fast=fast->next;
         }
         
-        cout<<temp->val<<endl;
-        
-        if(temp->next!=NULL)
-            temp->next=temp->next->next;
-        
+        if(slow->next!=NULL)
+            slow->next=slow->next->next;
         
         return head;
-        
-        
-        
-        
-        
         
     }
 };
