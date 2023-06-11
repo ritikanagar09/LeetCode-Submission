@@ -11,28 +11,24 @@
  */
 class Solution {
 public:
-    // we are storing only upper bound
-    // by reference-> agar nhi lagayenge toh i ki value stack ke acoording change hoti rahegi ..that we dont want we want it to traverse over arrays in increaing order. 
-    TreeNode* solve(int bound, vector<int>&preorder, int &i){
-        
-        if(i>=preorder.size() || preorder[i]>=bound){
+    
+    TreeNode* solve(vector<int>& preorder, int ubound, int &indx){
+        if(indx>=preorder.size() || preorder[indx]>ubound ){
             return NULL;
         }
         
+        TreeNode* root= new TreeNode(preorder[indx]);
+        indx++;
+        TreeNode* leftTree=solve(preorder, root->val, indx);
+        TreeNode* rightTree=solve(preorder,ubound,indx);
         
-        TreeNode* root=new TreeNode(preorder[i]);
-        i++;
-        TreeNode* l=solve( root->val, preorder,i);
-        TreeNode* r=solve(bound, preorder,i);
-     
-        root->left=l;
-        root->right=r;
+        root->left=leftTree;
+        root->right=rightTree;
+        
         return root;
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        // int i;
-        int i=0;
-        return solve(INT_MAX,preorder,i);
-        
+        int indx=0;
+        return solve(preorder, INT_MAX,indx);
     }
 };
