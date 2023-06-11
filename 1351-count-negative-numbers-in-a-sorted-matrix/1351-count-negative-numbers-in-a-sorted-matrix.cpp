@@ -1,30 +1,21 @@
 class Solution {
 public:
     int countNegatives(vector<vector<int>>& grid) {
-        int n=grid.size();
-        int m=grid[0].size(); 
-        int cnt=0;
-        for(int i=0;i<n;i++){
-            // now 
-            
-            int l=0;
-            int h=m-1;
-            
-            while(l<=h){
-                int mid=(l+h)/2;
-                if(grid[i][mid]>=0){
-                    l=mid+1;
-                }else{
-                    h=mid-1;
-                }
-            }
-            
-            cout<<h<<endl;
-            if(h!=m-1)
-                cnt+=(m-l);
-            
-        }
-        
-        return cnt;
+        int i=0;
+       int j=grid[0].size()-1;
+       int count=0;
+       while(i<grid.size()&&j>=0)
+       {
+           if(grid[i][j]<0)
+           {
+               count+=(grid.size()-i); // add Negative Count = Total Row - current Row
+               j--; //decrease the Column Pointer ( j--)
+           }
+           else if(grid[i][j]>=0)
+           {
+               i++; // increase the Row pointer ( i++ )
+           }
+       }
+       return count;
     }
 };
