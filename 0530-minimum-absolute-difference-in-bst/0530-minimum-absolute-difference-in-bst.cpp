@@ -11,14 +11,14 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* root, int &mini, int& prev){
+    void solve(TreeNode* root, int &mini, int &prev){
         if(root==NULL){
             return;
         }
         
         solve(root->left,mini,prev);
         if(prev!=-1){
-            mini=min(mini, root->val-prev);
+            mini=min(mini,abs(prev-root->val));
         }
         
         prev=root->val;
@@ -26,9 +26,11 @@ public:
         solve(root->right,mini,prev);
     }
     int getMinimumDifference(TreeNode* root) {
+        
         int mini=INT_MAX;
         int prev=-1;
         solve(root,mini,prev);
+        
         return mini;
     }
 };
