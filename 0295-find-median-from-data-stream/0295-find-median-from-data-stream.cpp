@@ -1,54 +1,54 @@
 class MedianFinder {
 public:
-    priority_queue<double> max_pq;
-    priority_queue<double, vector<double>, greater<double> > min_pq;      
+    priority_queue<double>max_heap;
+    
+    priority_queue<double,vector<double>,greater<double>>min_heap;
     MedianFinder() {
         
     }
     
     void addNum(int num) {
-            if(min_pq.empty() && max_pq.empty()){
-                max_pq.push(num);
-            } 
-            else if(!max_pq.empty() && num <= max_pq.top()){
-                max_pq.push(num);
-            } 
-            else{
-                min_pq.push(num);
+        if(max_heap.empty() && min_heap.empty())
+        {
+            max_heap.push(num);
+        }
+        else if(!max_heap.empty() && num <= max_heap.top())// left part 
+        {
+            max_heap.push(num);
+        }else{
+            min_heap.push(num);
+        }
+        
+        
+        // ab push krne k baad we are managing both the heaps 
+        int size=max_heap.size() - min_heap.size();
+        if(abs(size) > 1){// matlab naa hi odd ke liye kaam karegi naa hi even k liye 
+            if(max_heap.size() > min_heap.size()){
+                min_heap.push(max_heap.top());
+                max_heap.pop();
+            }else{
+                max_heap.push(min_heap.top());
+                min_heap.pop();
             }
-        
-        
-        if(abs(max_pq.size() - min_pq.size() > 1)){ 
-                if(max_pq.size() > min_pq.size()){
-                    min_pq.push(max_pq.top());
-                    max_pq.pop();
-                } else {
-                    max_pq.push(min_pq.top());
-                    min_pq.pop();
-                }
         }
     }
     
     double findMedian() {
         
-        double median;
-            
-
-            if(max_pq.size() > min_pq.size()){ 
-                median= max_pq.top();
-            } else if(max_pq.size() < min_pq.size()){
-                median= min_pq.top();
-            } else {
-                
-                if(max_pq.empty()){
-                    median=0;
-                } else{
-                    median = (max_pq.top() + min_pq.top())/2.0;
-                }
-                
-            }
+        // either even hoga yaa odd hoga 
         
-         return median;
+        if(max_heap.size()==min_heap.size()){ // even case 
+            double median= (max_heap.top()+min_heap.top())/2.0;
+            
+            return median;
+        }else {
+            if(max_heap.size() > min_heap.size()){
+                
+                return max_heap.top();
+            }else{
+                return min_heap.top();
+            }
+        }
     }
 };
 
