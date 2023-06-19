@@ -1,37 +1,33 @@
 class Solution {
 public:
-    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+    vector<int> maxSlidingWindow(vector<int>& arr, int k) {
         
-        vector<int>res;
-        deque<int>dq;
-        int n=nums.size();
-        for(int i=0;i<n;i++){
-           
-                if(!dq.empty()&&(i-dq.front()-k==0)){
-                    dq.pop_front();
-                }
-                while(!dq.empty() && nums[dq.back()]<nums[i]){
-                    // dq.pop_front();
-                    dq.pop_back();
-                }
-                
-                
-                
-                dq.push_back(i);
-            
-            
-            // ek case or handle krna h 
-            // ki out of boundary wala case 
-            
-            
-            if(i>=k-1){
-                res.push_back(nums[dq.front()]);
-            }
+     priority_queue<pair<int,int>> pq; // element -> index
+    // vec to store the results
+    vector<int> res;
+    // left and right bound of our window
+    int right = 0, left = 0;
+
+    // outer loop
+    while(right < arr.size())
+    {
+        // add every element into the PQ
+        pq.push({arr[right] , right});
+        // window is not full... expand it
+        if(right - left + 1 < k)
+            right++;
+        // window is full
+        else if(right - left + 1 == k)
+        {
+            // remove the element not in the window from the PQ
+            while(pq.top().second < left)
+                pq.pop();
+            // push the max elemnet from the window into the PQ
+            res.push_back(pq.top().first);
+            // slide the window
+            left++; right++;
         }
-    
-            
-        
-        
-        return res;
+    }
+    return res;
     }
 };
