@@ -1,33 +1,48 @@
 class Solution {
 public:
-    vector<int> maxSlidingWindow(vector<int>& arr, int k) {
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         
-     priority_queue<pair<int,int>> pq; // element -> index
-    // vec to store the results
-    vector<int> res;
-    // left and right bound of our window
-    int right = 0, left = 0;
+        
+        // 2 cheeze dhyaan rkhni h isme 
+        
+        // 1: out of range ko bahar nikal do  -> from front
+        // 2: muhse or current element se koi kam h toh ushe bahar nikal do -> from back 
+        
+        
+        // deque have been maintained in such a way that the only desired or usefull elemnet 
+        // which will heps in having answer will be there in our dequeue 
+        deque<int>dq;
+        
+        
+        vector<int>res;
+        
+        for(int i=0;i<nums.size();i++){
+            
+            
+            // 1 step
+            
+            if(!dq.empty() && (i-dq.front())==k){
+                dq.pop_front(); // sirf ek element hoga --> ek baari mein 
+            }
+            
+            while(!dq.empty() && nums[dq.back()] < nums[i]){
+                dq.pop_back(); // tumahra raja aa gya h ...ab tum bacho ki jarurut nhi h
+            }
+            
+            dq.push_back(i);
+            
+            // daalna k window maintain hone k baad hi karnege 
+            
+            if(i >= k-1){
+                res.push_back(nums[dq.front()]);
+            }
 
-    // outer loop
-    while(right < arr.size())
-    {
-        // add every element into the PQ
-        pq.push({arr[right] , right});
-        // window is not full... expand it
-        if(right - left + 1 < k)
-            right++;
-        // window is full
-        else if(right - left + 1 == k)
-        {
-            // remove the element not in the window from the PQ
-            while(pq.top().second < left)
-                pq.pop();
-            // push the max elemnet from the window into the PQ
-            res.push_back(pq.top().first);
-            // slide the window
-            left++; right++;
+            
+            
         }
-    }
-    return res;
+        
+        return res;
+        
+        
     }
 };
