@@ -1,24 +1,23 @@
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
+        int low=0;
+        int high=nums.size()-1;
         
-        // XOR 
-        // 1^1=0    0^0=0  1^0=1   0^1=1
-        // Basically if dfirrent to mai bachunga 
-        // agar mera hum shakal aa jayega 
-        // tho mai ushe maar dunga 
+        int num;
         
-        int xor1=0;
-        for(int i=0;i<nums.size();i++){
-            xor1=xor1 ^ nums[i];
+        while(low<high){
+            int mid=(low+high)/2;
+            num=mid%2==0 ? mid+1:mid-1;
+            
+            if(nums[mid]==nums[num]){// bhadaiyaan aap left par me hi ho ..par apna left danda dhudne low ko aage bdha do 
+                low=mid+1;
+                
+            }else{
+                high=mid;
+            }
         }
         
-        return xor1;
-        
-        
-        
-        // WASTE SOLUTION HAI 
-        // O(N) SOLUTION SHOUDL BE THERE 
-        // WRITTEN IN QUESTION
+        return nums[low];
     }
 };
