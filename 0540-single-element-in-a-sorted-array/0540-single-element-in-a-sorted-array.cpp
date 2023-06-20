@@ -14,5 +14,11 @@ public:
         }
         
         return xor1;
+        
+        
+        
+        // WASTE SOLUTION HAI 
+        // O(N) SOLUTION SHOUDL BE THERE 
+        // WRITTEN IN QUESTION
     }
 };
