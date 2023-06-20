@@ -1,11 +1,18 @@
 class Solution {
 public:
     int singleNonDuplicate(vector<int>& nums) {
-        int n = nums.size();
-        int curr_xor=0; //variable will store XOR
-        for(int i =0;i<n;i++){
-            curr_xor ^= nums[i]; // XOR
+        
+        // XOR 
+        // 1^1=0    0^0=0  1^0=1   0^1=1
+        // Basically if dfirrent to mai bachunga 
+        // agar mera hum shakal aa jayega 
+        // tho mai ushe maar dunga 
+        
+        int xor1=0;
+        for(int i=0;i<nums.size();i++){
+            xor1=xor1 ^ nums[i];
         }
-        return curr_xor;
+        
+        return xor1;
     }
 };
