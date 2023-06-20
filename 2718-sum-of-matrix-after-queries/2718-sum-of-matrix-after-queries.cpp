@@ -18,8 +18,6 @@ public:
                 sum+=ans;
                 mpr[id]=1;
                 row++;
-                 if(row>n)
-                    row=n;
             }else if(queries[i][0]==1 && mpc[id]==0){
                 // queries[i].push_back(row);
                 
@@ -28,8 +26,6 @@ public:
                 sum+=ans;
                 mpc[id]=1;
                 colm++;
-                if(colm > n)
-                    colm=n;
             }
         }
         
