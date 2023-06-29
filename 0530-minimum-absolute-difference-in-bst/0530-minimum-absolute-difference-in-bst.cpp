@@ -11,40 +11,42 @@
  */
 class Solution {
 public:
-//     void solve(TreeNode* root, int &mini, int& prev){
-//         if(root==NULL){
-//             return;
-//         }
-        
-        
-        
-//         solve(root->left,mini, prev);
-        
-//         if(prev!=-1){
-//             // int a=1e9;
-//             int a=abs(root->val - prev);
-//             mini=min(a,mini);
-//         }
-        
-//         solve(root->right,mini, root->val);
-        
-//     }
-    
-    
     void solve(TreeNode* root, int &mini, int& prev){
         if(root==NULL){
             return;
         }
         
-        solve(root->left,mini,prev);
+        
+        
+        solve(root->left,mini, prev);
+        
         if(prev!=-1){
-            mini=min(mini, root->val-prev);
+            // int a=1e9;
+            int a=abs(root->val - prev);
+            mini=min(a,mini);
         }
         
         prev=root->val;
         
-        solve(root->right,mini,prev);
+        solve(root->right,mini, prev);
+        
     }
+    
+    
+//     void solve(TreeNode* root, int &mini, int& prev){
+//         if(root==NULL){
+//             return;
+//         }
+        
+//         solve(root->left,mini,prev);
+//         if(prev!=-1){
+//             mini=min(mini, root->val-prev);
+//         }
+        
+//         prev=root->val;
+        
+//         solve(root->right,mini,prev);
+//     }
     int getMinimumDifference(TreeNode* root) {
         
         int mini=1e9;
