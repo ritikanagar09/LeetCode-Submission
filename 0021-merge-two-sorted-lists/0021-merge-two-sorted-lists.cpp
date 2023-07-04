@@ -15,21 +15,11 @@ public:
     ListNode* temp=dummy;
 
     while(h1 != NULL && h2 != NULL){
-        cout<<h1->val<<" "<<h2->val<<endl;
         if(h1->val < h2->val){
             temp->next=h1;
             h1=h1->next;
-        }else if(h1->val > h2->val){
-            temp->next=h2;
-            h2=h2->next;
         }else{
-            temp->next=h1;
-            
-            
-            temp=temp->next;
-            h1=h1->next;
             temp->next=h2;
-            
             h2=h2->next;
         }
         temp=temp->next;
@@ -37,18 +27,14 @@ public:
         
     }
 
-    while(h1!=NULL){
+    if(h1!=NULL){
         temp->next=h1;
-        h1=h1->next;
-        temp=temp->next;
     }
 
 
-    while(h2!=NULL){
+    if(h2!=NULL){
         temp->next=h2;
-        h2=h2->next;
-        temp=temp->next;
-    }
+     }
 
     return dummy->next;
     }
