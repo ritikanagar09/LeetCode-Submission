@@ -22,9 +22,7 @@ public:
             temp->next=h2;
             h2=h2->next;
         }
-        temp=temp->next;
-        // temp->next=NULL;
-        
+        temp=temp->next; 
     }
 
     if(h1!=NULL){
