@@ -1,1 +1,1 @@
-2 attempt ki glti -----> second list k pointer ko aage bnhi bdha if it isnot omcing in my range
+​
