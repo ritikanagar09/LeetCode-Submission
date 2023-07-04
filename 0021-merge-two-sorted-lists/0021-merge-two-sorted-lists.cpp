@@ -14,7 +14,7 @@ public:
     ListNode* dummy= new ListNode(-1);
     ListNode* temp=dummy;
 
-    while(h1 && h2){
+    while(h1 != NULL && h2 != NULL){
         cout<<h1->val<<" "<<h2->val<<endl;
         if(h1->val < h2->val){
             temp->next=h1;
@@ -32,7 +32,7 @@ public:
             h2=h2->next;
         }
         temp=temp->next;
-        temp->next=NULL;
+        // temp->next=NULL;
         
     }
 
