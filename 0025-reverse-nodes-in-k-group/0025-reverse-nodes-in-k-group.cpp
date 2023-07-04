@@ -11,9 +11,9 @@
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if(head==NULL || head->next==NULL){
-            return head;
-        }
+//         if(head==NULL || head->next==NULL){
+//             return head;
+//         }
         
         // pehle hi node ki count measure kr le 
         
