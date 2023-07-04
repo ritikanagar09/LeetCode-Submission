@@ -10,57 +10,45 @@
  */
 class Solution {
 public:
-    ListNode* solve(ListNode* list1, ListNode* list2){
-        if(list1->next==NULL){
-            list1->next=list2;
-            return list1;
-        }
-        ListNode* prev=list1;
-        ListNode* curr1=list1->next;
-        ListNode* curr2=list2;
-        ListNode* temp=curr2->next;
-        
-        while(curr1!=NULL && curr2!=NULL){
+    ListNode* mergeTwoLists(ListNode* h1, ListNode* h2) {
+    ListNode* dummy= new ListNode(-1);
+    ListNode* temp=dummy;
+
+    while(h1 && h2){
+        cout<<h1->val<<" "<<h2->val<<endl;
+        if(h1->val < h2->val){
+            temp->next=h1;
+            h1=h1->next;
+        }else if(h1->val > h2->val){
+            temp->next=h2;
+            h2=h2->next;
+        }else{
+            temp->next=h1;
+            h1=h1->next;
             
-            if(curr2->val>=prev->val && curr2->val<=curr1->val){
-                temp=curr2->next;
-                prev->next=curr2;
-                curr2->next=curr1;
-                
-                prev=curr2;//Made errror 
-                curr2=temp;
-            }else{
-                
-                prev=curr1;
-                curr1=curr1->next;
-                
-                if(curr1==NULL){
-                    prev->next=curr2;
-                    return list1;
-                }
-            }
-                
+            temp=temp->next;
+            temp->next=h2;
             
+            h2=h2->next;
         }
-        
-        return list1;
-        
+        temp=temp->next;
+        temp->next=NULL;
         
     }
-    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
-        
-        if(list1==NULL){
-            return list2;
-        }
-        
-        if(list2==NULL){
-            return list1;
-        }
-        
-        if(list1->val<=list2->val){
-            return solve(list1,list2);
-        }else{
-            return solve(list2,list1);
-        }
+
+    while(h1!=NULL){
+        temp->next=h1;
+        h1=h1->next;
+        temp=temp->next;
+    }
+
+
+    while(h2!=NULL){
+        temp->next=h2;
+        h2=h2->next;
+        temp=temp->next;
+    }
+
+    return dummy->next;
     }
 };
