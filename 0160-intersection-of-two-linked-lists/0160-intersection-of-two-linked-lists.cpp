@@ -13,39 +13,24 @@ public:
         ListNode * h1=headA;
         ListNode * h2=headB;
         
-        map<ListNode *, int>mpp;
-        
-        while(h1 !=NULL){
-            mpp[h1]=1;
-            h1=h1->next;
-        }
-        
-        while(h2 != NULL){
+        while(h1 != h2){
             
-            if(mpp.find(h2) != mpp.end()){
-                return h2;
+            if(h1==NULL){
+                h1=headB;
+            }else{
+                h1=h1->next;
             }
-            mpp[h2]=1;
-            h2=h2->next;
+            
+            if(h2==NULL){
+                h2=headA;
+            }else{
+                h2=h2->next;
+            }
+            
+            
+            
         }
         
-//         while(h1!=NULL || h2!=NULL){
-//             if(h1==h2){
-//                 return h1;
-//             }
-            
-//             h1=h1->next;
-//             h2=h2->next;
-            
-//             if(h1->next==NULL){
-//                 h1=headB;
-//             }
-            
-//             if(h2->next==NULL){
-//                 h2=headA;
-//             }
-//         }
-        
-        return NULL;
+        return h1;
     }
 };
