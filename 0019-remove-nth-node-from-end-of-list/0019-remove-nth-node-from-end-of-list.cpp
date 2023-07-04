@@ -27,6 +27,7 @@ public:
             fast=fast->next;
         }
         
+        // cout<<fast->val<<endl;
         if(fast==NULL){
             head=head->next;
             return head;
@@ -37,10 +38,11 @@ public:
             fast=fast->next;
         }
         
+        // cout<<slow->val<<endl;
         
         ListNode* node=slow->next;
         
-        if(node!=NULL)
+        // if(node!=NULL)
             slow->next=node->next;
         
         return head;
