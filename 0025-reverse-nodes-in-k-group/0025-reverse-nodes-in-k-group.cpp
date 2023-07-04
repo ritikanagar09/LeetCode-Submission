@@ -11,44 +11,45 @@
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if(head==NULL ||head->next==NULL){
+        if(head==NULL || head->next==NULL){
             return head;
         }
         
-        ListNode* prev=NULL;
-        ListNode* curr=head;
-        ListNode* next1=head->next;
-        int cnt=1;
-        while(curr!=NULL && cnt<=k){
-            next1=curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=next1;
-            cnt++;
+        // pehle hi node ki count measure kr le 
+        
+        int x=k;
+        ListNode* temp=head;
+        while(x >0 && temp!=NULL){
+            temp=temp->next;
+            x--;
         }
         
-        // next1 will be pointing at at the next kth group ki starting me
         
-        if(next1!=NULL){
-            
-            // check if k size kaa group exit bhi krta h kya 
-            ListNode* temp=next1;
-            int i=0;
-            
-            while(temp!=NULL && i<k){
-                temp=temp->next;
-                i++;
+        
+        if(x==0){
+            ListNode* prev=NULL;
+            ListNode* curr= head;
+            ListNode*next=curr->next;
+
+            int n=k;
+
+            while(n--){
+                next=curr->next;
+                curr->next=prev;
+                prev=curr;
+                curr=next;
             }
-             // cout<<i<<endl;
-            if(i==k){
-                // group exits 
-                head->next=reverseKGroup(next1,k);
-            }else{
-                head->next=next1;
-            }
+
+            // paagal aurat ..ynhar head bhi oth tha ek p
+
+            head->next=reverseKGroup(curr,k);
+
+            return prev;
+        }else{
+            return head;
         }
         
-        return prev;
+        
         
     }
 };
