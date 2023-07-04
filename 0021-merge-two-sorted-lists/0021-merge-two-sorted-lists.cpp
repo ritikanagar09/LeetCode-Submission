@@ -24,9 +24,10 @@ public:
             h2=h2->next;
         }else{
             temp->next=h1;
-            h1=h1->next;
+            
             
             temp=temp->next;
+            h1=h1->next;
             temp->next=h2;
             
             h2=h2->next;
