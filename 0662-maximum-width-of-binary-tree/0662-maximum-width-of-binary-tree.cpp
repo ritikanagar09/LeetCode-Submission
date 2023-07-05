@@ -11,49 +11,39 @@
  */
 class Solution {
 public:
-    typedef unsigned long long ll;
     int widthOfBinaryTree(TreeNode* root) {
-        // hum ynha par level vise chl rahe hai 
-        // toh quueue use karenge 
-        // har node ko ek index de rhe hai 
-        // iske vajag each node will be resent a number line 
-        // hence we can simple find th enumber of node sbetween two nodes
-        
-        queue<pair<TreeNode*,ll>>q;
+        queue<pair<TreeNode*,long long int>>q;
+        int maxwidth=0;
         q.push({root,0});
-        
-        ll ans=0;
-        
         while(!q.empty()){
+            int size=q.size();
             
-            // ush particular level k sari ndeos ko index se naam krnge 
-            int n=q.size();
+            long long int nmin=q.front().second;
+            int first=0;
+            int last=0;
             
-            // abhi tak queue me jo bhi padha tha 
-            // hum vo dekh rahe hai 
-            // unke liye calculations karne ki koshish kar rahe h
-            ll low=q.front().second;
-            ll high=q.back().second;
-            
-            ans=max(ans, high-low+1);
-            
-            while(n--){
+            for(int i=0;i<size;i++){
+                long long int currid=q.front().second-nmin;
                 TreeNode* front=q.front().first;
-                ll indx=q.front().second;
+                
                 q.pop();
                 
-                if(front->left){
-                    q.push({front->left,2*indx+1});
-                }
+                if(i==0)
+                    first=currid;
+                if(i==size-1)
+                    last=currid;
                 
-                if(front->right){
-                    q.push({front->right,2*indx+2});
-                }
+                if(front->left)
+                    q.push({front->left,2*currid+1});
+                if(front->right)
+                    q.push({front->right,2*currid+2});
             }
             
+            int width=last-first+1;
+            maxwidth=max(width,maxwidth);
             
         }
         
-        return ans;
+        return maxwidth;
     }
 };
