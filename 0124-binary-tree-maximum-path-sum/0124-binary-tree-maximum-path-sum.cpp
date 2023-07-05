@@ -11,33 +11,30 @@
  */
 class Solution {
 public:
-    int maxi=INT_MIN;
-    int solve(TreeNode* root){
-        if(root==NULL){
+    int solve(TreeNode* root, int &maxsum,vector<int>&path ){
+       if(root==NULL){
             return 0;
         }
         
-        int leftAns=0;
-        int rightAns=0;// ye humnde value st keri h ki minmum can be only zero 
-        // koi bhi negative vlaue hum apne path me include nhi karenge 
-        // oth agar koi value negative hui toh uski jagah hum zero lelenge 
         
+        int leftans=0;
+        int rightans=0;
         
-        leftAns=max(leftAns,solve(root->left));
-        rightAns=max(rightAns, solve(root->right));
+        leftans=max(leftans,solve(root->left,maxsum,path));
+        rightans=max(rightans,solve(root->right,maxsum,path));
         
-        // maxi value store kr vaale 
-        int ans=(leftAns+rightAns)+root->val;
-        maxi=max(maxi,ans);
+        int sum=root->val + leftans + rightans;
         
-        return max(leftAns, rightAns)+root->val;
+        maxsum=max(sum,maxsum);
         
-        
+        return max(leftans,rightans)+root->val;
     }
     int maxPathSum(TreeNode* root) {
+        int maxsum=INT_MIN;
+        vector<int>path;
         
-        solve(root);
+        solve(root,maxsum,path);
         
-        return maxi;
+        return maxsum;
     }
 };
