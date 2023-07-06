@@ -12,23 +12,27 @@
 class Solution {
 public:
     
-    TreeNode* solve(vector<int>& preorder, int ubound, int &indx){
-        if(indx>=preorder.size() || preorder[indx]>ubound ){
+    TreeNode* solve(vector<int>& preorder, int start, int end){
+        
+        if(start > end){
             return NULL;
         }
         
-        TreeNode* root= new TreeNode(preorder[indx]);
-        indx++;
-        TreeNode* leftTree=solve(preorder, root->val, indx);
-        TreeNode* rightTree=solve(preorder,ubound,indx);
+        TreeNode* root=new TreeNode(preorder[start]);
         
-        root->left=leftTree;
-        root->right=rightTree;
+        
+        int i=start+1;
+        while(i<=end && preorder[i]< root->val){
+            i++;
+        }
+        
+        root->left=solve(preorder, start+1,i-1 );
+        root->right=solve(preorder, i,end);
         
         return root;
     }
     TreeNode* bstFromPreorder(vector<int>& preorder) {
-        int indx=0;
-        return solve(preorder, INT_MAX,indx);
+        
+        return solve(preorder, 0, preorder.size() -1);
     }
 };
