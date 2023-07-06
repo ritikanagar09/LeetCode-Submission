@@ -9,44 +9,43 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-
 class Solution {
 public:
-    int diff=0;
-    int mini=INT_MAX;
-    int maxi=INT_MIN;
-    pair<int,int> solve(TreeNode* root){
+    
+    pair<int,int> solve(TreeNode* root, int &maxi){
+        
         if(root==NULL){
-            return {INT_MAX,INT_MIN};
+            return {1e9,-1e9};
         }
+        
         if(root->left==NULL && root->right==NULL){
-            // mini=min(mini,root->val);//4
-            // maxi=max(maxi,root->val);//7
             return {root->val,root->val};
         }
         
         
+        pair<int,int> leftAns=solve(root->left,maxi);
+        pair<int,int> rightAns=solve(root->right,maxi);
         
-        pair<int,int>l=solve(root->left);//3,3
-        pair<int,int>r=solve(root->right);//0,0
+        int minval=min(leftAns.first, rightAns.first);
+        int maxval=max(leftAns.second, rightAns.second);
         
-        int nmin,nmax;
-        nmin=min(l.first, r.first);//0
-        nmax=max(l.second, r.second);//3
-        int a= abs(root->val-nmin);
-        int b= abs(root->val-nmax);
-        int difi=max(a,b);
-        diff=max(difi,diff);
-        cout<<diff<<endl;
-        nmin=min(nmin,root->val);
-        nmax=max(nmax,root->val);
-        //cout<<"return->"<<nmin<<" "<<nmax<<endl;
-        return {nmin,nmax};
+        int ans=max(abs(maxval-root->val), abs(minval-root->val));
+        
+        if(ans>maxi){
+            maxi=ans;
+        }
+        
+        minval=min(minval, root->val);
+        maxval=max(maxval,root->val );
+        
+        return {minval,maxval};
         
     }
     int maxAncestorDiff(TreeNode* root) {
         
-        solve(root);
-        return diff;
+        int maxi=0;
+        solve(root,maxi);
+        
+        return maxi;
     }
 };
