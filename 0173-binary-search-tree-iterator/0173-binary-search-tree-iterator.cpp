@@ -11,31 +11,27 @@
  */
 class BSTIterator {
 public:
-    
     stack<TreeNode*>st;
     BSTIterator(TreeNode* root) {
-        pushAllLeft(root);
+        pushAllRight(root);
     }
-
-
     
     int next() {
-        TreeNode* topnode=st.top();
+        TreeNode* mytop=st.top();
         st.pop();
-        pushAllLeft(topnode->right);// bhai saare right node ke extreme left ko daalegi naa
-        return topnode->val;
+        pushAllRight(mytop->right);
+        return mytop->val;
     }
     
     bool hasNext() {
-        
         return !st.empty();
     }
     
-private: 
-    void pushAllLeft(TreeNode* node){
-        while(node!=NULL){
-            st.push(node);
-            node=node->left;
+    void pushAllRight(TreeNode* root){
+        
+        while(root!=NULL){
+            st.push(root);
+            root=root->left;
         }
     }
 };
