@@ -16,22 +16,15 @@ public:
             return NULL;
         }
         
-        if(root->val==p->val || root->val==q->val){
-            return root;
-        }
         
-        TreeNode* leftans=lowestCommonAncestor(root->left,p,q);
-        TreeNode* rightans=lowestCommonAncestor(root->right,p,q);
+        if(p->val < root->val && q->val < root->val)
+            return lowestCommonAncestor(root->left,p,q);
+        if(p->val > root->val && q->val > root->val)
+            return lowestCommonAncestor(root->right,p,q);
         
-        if(leftans && !rightans){
-            return leftans;
-        }else if(!leftans && rightans){
-            return rightans;
-        }else if(leftans && rightans){
-            return root;
-        }else{
-            return NULL;
-        }
+        return root;
+        
+       
         
     }
 };
