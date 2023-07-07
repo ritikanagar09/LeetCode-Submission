@@ -1,85 +1,41 @@
 class MinStack {
 public:
-    stack<long long>st;
-    
-    long long mini;
+    stack<pair<int,int>>st;
     MinStack() {
-        while(st.empty()==false)st.pop();
-        mini=INT_MAX;
+        
     }
     
     void push(int val) {
-        // long long v=val;
-        // if(v>mini){
-        //     st.push(v);
-        //     // mini=min(mini,v);
-        // }else{
-        //     long long nval=2*v*1LL-mini;
-        //     st.push(nval);
-        //     mini=v;
-        // }
-        
-        long long v=val;
-        
         if(st.empty()){
-            mini=v;
-            st.push(v);
+            st.push({val,val});
         }else{
-            cout<<"//"<<endl;
-            if(v>mini){
-                st.push(v);
-            }else{
-                cout<<"&&&"<<endl;
-                long long nval=2*v*1LL-mini;
-                st.push(nval);
-                mini=v;
-            }
+            int sval=st.top().second;
+            int mini=min(sval,val);
+            st.push({val,mini});
         }
-        
-        cout<<mini<<" 1"<<endl;
     }
     
     void pop() {
-        
-        // if(st.top()>mini){
-        //     st.pop();
-        // }else{
-        //     int nval=st.top();
-        //     int val=mini;
-        //     long long nmini=2*mini*1LL-nval;
-        //     mini=nmini;
-        //     st.pop();
-        // }
-        
-        long long nval=st.top();
-        
-        if(nval < mini)
-        {
-            long long nmini=2*mini*1LL-nval;
-            mini=nmini;
+        if(!st.empty()){
+            st.pop();
         }
-        st.pop();
     }
     
     int top() {
-        
-        long long nval=st.top();
-        
-        
-        
-        if(nval<mini){
-            return mini;
+        if(!st.empty()){
+            return st.top().first;
         }
         
-        return nval;
-        
-        cout<<mini<<" 2"<<endl;
-        
+        return -1;
     }
     
     int getMin() {
-        cout<<mini<<" 3"<<endl;
-        return mini;
+        
+        if(!st.empty()){
+            return st.top().second;
+        }
+        
+        return -1;
     }
 };
 
