@@ -6,17 +6,19 @@ public:
         int n=matrix[0].size();
         
         
-        int i=0;
-        int j=n-1;
+        int low=0;
+        int high=m*n-1;
         
-        while(i < m && j >=0){
-            
+        while(low <= high){
+            int mid=(low+high)/2;
+            int i=mid/n;
+            int j=mid%n;
             if(matrix[i][j]==target){
                 return true;
             }else if(matrix[i][j] < target){
-                i++;
+                low=mid+1;
             }else{
-                j--;
+                high=mid-1;
             }
         }
         
