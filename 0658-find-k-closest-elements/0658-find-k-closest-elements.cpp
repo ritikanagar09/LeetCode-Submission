@@ -1,42 +1,24 @@
 class Solution {
 public:
     vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+        int l=0;
+        int r=arr.size()-1;
+        
+        
+        while(r-l >= k){ // ynha par we trying to find the window of size k
+            if(x-arr[l] <= arr[r]-x){
+                r--;
+            }else{
+                l++;
+            }
+        }
+        
         
         vector<int>ans;
-        int n=arr.size();
-        priority_queue<pair<int,int>>pq;
-        
-        for(int i=0;i<n;i++){
-            int dif=abs(x-arr[i]);
-            if(i<k){
-                pq.push({dif,i});
-            }
-            else{
-                if(pq.top().first > dif){
-                    pq.pop();
-                    pq.push({dif,i});
-                }
-            }
-            
+        for(int i=l;i<=r;i++){
+            ans.push_back(arr[i]);
         }
         
-        while(!pq.empty() && k--){
-            ans.push_back(pq.top().second);
-            pq.pop();
-        }
-        
-        sort(ans.begin(),ans.end());
-        
-        vector<int>res;
-        
-        for(int i=0;i<ans.size();i++){
-            res.push_back(arr[ans[i]]);
-        }
-        
-        
-        
-        return res;
-        
-        
+        return ans;
     }
 };
