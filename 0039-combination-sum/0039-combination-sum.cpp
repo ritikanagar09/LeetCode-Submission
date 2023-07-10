@@ -1,30 +1,30 @@
 class Solution {
 public:
-    void solve(int i,int sum, vector<int>& candidates, int target, vector<int>&path, vector<vector<int>>&ans, int n ){
-        if(sum==target){
-            ans.push_back(path);
-            return;
-        }
-        
-        if(i>=n || sum>target){
-            return;
-        }
-        cout<<i<<" "<<sum<<endl;
-        path.push_back(candidates[i]);
-        sum+=candidates[i];
-        solve(i,sum,candidates, target,path,ans,n);
-        path.pop_back();
-        sum-=candidates[i];
-        solve(i+1,sum,candidates, target,path,ans,n);
-        
+    void solve(int indx,int sum, vector<int> arr, int n, int k, vector<int>&path, set<vector<int>>&res ){
+
+    if(indx >= n || sum > k){
+        return;
     }
-    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    if(sum==k){
+        res.insert(path);
+    }
         
-        int n=candidates.size();
+        // cout<<indx<<endl;
+
+    
+    path.push_back(arr[indx]);
+    solve(indx,sum+arr[indx],arr,n,k,path,res);
+    path.pop_back();
+    solve(indx+1,sum,arr,n,k,path,res);
+}
+    vector<vector<int>> combinationSum(vector<int>& arr, int k) {
+        int n=arr.size();
+        set<vector<int>>st;
         vector<int>path;
-        vector<vector<int>>ans;
-        int sum=0;
-        solve(0, 0, candidates, target, path ,ans,n);
-        return ans;
+
+        solve(0,0,arr,n,k,path,st);
+
+        vector<vector<int>>res(st.begin(),st.end());
+        return res;
     }
 };
