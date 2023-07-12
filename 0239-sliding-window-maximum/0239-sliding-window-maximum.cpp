@@ -1,33 +1,39 @@
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-        
-        
         int n=nums.size();
         
-        int right=0;
-        int left=0;
-        priority_queue<pair<int,int>>pq;
-        
+        deque<int>dq;
         vector<int>ans;
-        while(right < n){
+        // we are storing indexes in deque
+        for(int i=0;i<n;i++){
             
-            pq.push({nums[right],right});
-            if(right-left+1>=k){
-                while(pq.top().second < left){
-                    pq.pop();
-                }
-                
-                ans.push_back(pq.top().first);
-                left++;
-                
+            // remove out of bounds 
+            
+            if(!dq.empty() && dq.front()==i-k){
+                dq.pop_front();
             }
             
-            right++;
+            // we need to store only maximum elem
+            // store which are smaller than it 
+            // we have stored elem in decreasing order 
+            // toh sabse pehle piche remove krna 
+            // shuru karo
+            
+            while(!dq.empty() && nums[dq.back()] < nums[i]){
+                dq.pop_back();
+            }
+            
+            
+            dq.push_back(i);
+            
+            // we start taking elemnts from
+            
+            if(i>=k-1){
+                ans.push_back(nums[dq.front()]);
+            }
         }
         
         return ans;
-        
-        
     }
 };
