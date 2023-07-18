@@ -29,7 +29,7 @@ public:
         
         int diff=len-k;
         
-        ListNode* slow=head;
+        // ListNode* slow=head;
         
         while(diff--){
             temp=temp->next;
