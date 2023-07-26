@@ -17,15 +17,17 @@ public:
         if(flag){
             return 0;
         }
+        vector<vector<int>>vis(m, vector<int>(n,0));
         queue<pair<int,int>>q;
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
                 if(grid[i][j]==2){
                     q.push({i,j});
+                    vis[i][j]=1;
                 }
             }
         }
-        vector<vector<int>>vis(m, vector<int>(n,0));
+        
         int time=-1;
         while(!q.empty()){
             int size=q.size();
@@ -44,8 +46,8 @@ public:
                     int nx=x+dx[i];
                     int ny=y+dy[i];
                     
-                    if(nx>=0 && nx<m && ny>=0 && ny<n && grid[nx][ny]==1){
-                        grid[nx][ny]=2;
+                    if(nx>=0 && nx<m && ny>=0 && ny<n && grid[nx][ny]==1 && !vis[nx][ny]){
+                        // grid[nx][ny]=2;
                         vis[nx][ny]=1;
                         q.push({nx,ny});
                     }
@@ -58,7 +60,7 @@ public:
         
         for(int i=0;i<m;i++){
             for(int j=0;j<n;j++){
-                if(grid[i][j]==1){
+                if(grid[i][j]==1 && !vis[i][j]){
                     return -1;
                 }
             }
