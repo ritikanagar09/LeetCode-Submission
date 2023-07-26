@@ -1,43 +1,45 @@
 class Solution {
 public:
-    int m, n;
-    void dfs(int i, int j ,vector<vector<char>>& grid ){
-        
-        // base case ki aisi koi reuiremnt nhi h
-        // par kya karoge agar matrix se hi bahar chla gya 
-        if(i<0 || j<0 || i>=m || j>=n || grid[i][j]!='1'){
-            return ;
+    void dfs(int x, int y,vector<vector<char>>& grid, vector<vector<int>>& vis,int n,int m ){
+        if(x<0 || y<0 || x>=n || y>=m || grid[x][y]=='0' || vis[x][y]){
+            return;
         }
-        //  sabse pehle aa kar visit krte h kisi bhi node ko
-        grid[i][j]='2';
         
-        // now visit you adjacent nodes
+        vis[x][y]=1;
         
-        // uske liye call lagwa do ..simple
+        int dx[]={-1,1,0,0};
+        int dy[]={0,0,-1,1};
         
-        dfs(i,j+1,grid);
-        dfs(i+1,j,grid);
-        dfs(i-1,j,grid);
-        dfs(i,j-1,grid);
+         for(int i=0;i<4;i++){
+             int nx=x+dx[i];
+             int ny=y+dy[i];
+             
+             // if(grid[nx][ny]=='1' && !vis[nx][ny]){
+                 dfs(nx,ny,grid,vis,n,m);
+             // }
+         }                                        
+                                                 
+                                                 
+                                                 
         
     }
-    
-    
     int numIslands(vector<vector<char>>& grid) {
-        m=grid.size();
-        n=grid[0].size();
+        int n=grid.size();
+        int m=grid[0].size();
         
-        int ans=0;
-        for(int i=0;i<m;i++){
-            for(int j=0;j<n;j++){
-                if(grid[i][j]=='1'){// ynha par vo visited vali condition bhi check ho ja rhi h 
-                    dfs(i,j,grid);
-                    ans++;
+        vector<vector<int>>vis(n,vector<int>(m,0));
+        
+        int cnt=0;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                
+                if(grid[i][j]=='1' && !vis[i][j]){
+                    dfs(i,j,grid,vis,n,m);
+                    cnt++;
                 }
             }
         }
         
-        return ans;
-            
+        return cnt;
     }
 };
