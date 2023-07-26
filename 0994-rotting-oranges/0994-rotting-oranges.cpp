@@ -44,7 +44,7 @@ public:
                     int nx=x+dx[i];
                     int ny=y+dy[i];
                     
-                    if(nx>=0 && nx<m && ny>=0 && ny<n && grid[nx][ny]==1 && !vis[nx][ny]){
+                    if(nx>=0 && nx<m && ny>=0 && ny<n && grid[nx][ny]==1){
                         grid[nx][ny]=2;
                         vis[nx][ny]=1;
                         q.push({nx,ny});
