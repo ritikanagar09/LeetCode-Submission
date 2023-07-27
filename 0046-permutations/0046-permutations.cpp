@@ -3,33 +3,27 @@ public:
     
     
     void solve(int indx, vector<int>&nums, vector<int>&path, vector<vector<int>>&res, int n){
-        
-        // cout<<indx<<endl;
-        if(indx >= n-1){
-            // cout<<"&&"<<endl;
-            // cout<<indx<<" "<<nums.size()<<endl;
-            res.push_back(path);
+        if(indx >= n){
+            res.push_back(nums);
             return;
         }
         
         
         
-        for(int i=0;i<nums.size();i++){
+        for(int i=indx;i<nums.size();i++){
             
-            // cout<<"///"<<endl;
-            if(find(path.begin(), path.end(), nums[i])!=path.end())continue;
-            // cout<<"^^^"<<endl;
-            path.push_back(nums[i]);
+            swap(nums[indx],nums[i]);
+            // path.push_back(nums[i]);
             solve(indx+1,nums,path,res,n);
-            path.pop_back();
+            swap(nums[indx],nums[i]);
+            // path.pop_back();
         }
     }
     vector<vector<int>> permute(vector<int>& nums) {
         int n=nums.size();
         vector<vector<int>>res;
         vector<int>path;
-        solve(-1,nums,path,res,n);
-        // cout<<"///"<<endl;
+        solve(0,nums,path,res,n);
         return res;
         
     }
