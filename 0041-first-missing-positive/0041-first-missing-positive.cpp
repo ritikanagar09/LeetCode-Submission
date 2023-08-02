@@ -3,6 +3,9 @@ public:
     int firstMissingPositive(vector<int>& nums) {
         map<int,int>mpp;
         int maxi=INT_MIN;
+        
+        // ynha par this is not constant space 
+        // ye toh o(N) space me ho gya h
         for(int i=0;i<nums.size();i++){
             maxi=max(maxi,nums[i]);
             mpp[nums[i]]=1;
