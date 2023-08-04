@@ -1,43 +1,42 @@
 class Solution {
 public:
     
-    void solve(int indx, string s,set<string>& dict, vector<string>&path, vector<string>&ans){
-        
-        if(indx==s.size()){
-            string temp="";
-            for(int j=0;j<path.size()-1;j++){
-                temp+=path[j];
-                temp+=" ";
+    
+    void solve(int indx, string s, map<string,int>mpp,vector<string>& temp, vector<string>&ans){
+        if(indx>=s.size()){
+            string str="";
+            for(int i=0;i<temp.size()-1;i++){
+                str+=temp[i];
+                str+=" ";
             }
             
-            temp+=path[path.size()-1];
-            ans.push_back(temp);
+            str+=temp[temp.size()-1];
+            ans.push_back(str);
+            
             return;
         }
         
-        
         for(int i=indx;i<s.size();i++){
-            string sub=s.substr(indx, i-indx+1);
-            
-            if(dict.find(sub)!=dict.end()){
-                // sub+=" ";
-                path.push_back(sub);
-                solve(i+1,s,dict,path,ans);
-                path.pop_back();
+            string str=s.substr(indx,i-indx+1);
+            if(mpp.find(str)!=mpp.end()){
+                temp.push_back(str);
+                // temp+=" ";
+                solve(i+1,s,mpp,temp,ans);
+                temp.pop_back();
             }
-            
         }
     }
     vector<string> wordBreak(string s, vector<string>& wordDict) {
-        vector<string>path;
-        vector<string>ans;
-        
-        set<string>st;
-        
-        for(auto it:wordDict){
-            st.insert(it);
+        map<string,int>mpp;
+        int n=wordDict.size();
+        for(auto str:wordDict){
+            mpp[str]=1;
         }
-        solve(0,s,st,path,ans);
+        vector<string>ans;
+        vector<string>temp;
+        // string temp="";
+        solve(0,s,mpp,temp,ans);
+        
         
         return ans;
     }
