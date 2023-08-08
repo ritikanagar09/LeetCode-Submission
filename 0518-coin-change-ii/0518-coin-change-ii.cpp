@@ -29,8 +29,29 @@ public:
         
         int n=coins.size();
         
-        vector<vector<int>>dp(n+1,vector<int>(amount+1,-1));
+        vector<vector<int>>dp(n+1,vector<int>(amount+1,0));
         
-        return solve(coins.size()-1,amount,coins,dp);
+        // return solve(coins.size()-1,amount,coins,dp);
+        
+        dp[0][0]=1;
+        
+        for(int i=1; i <=n ;i++){
+            dp[i][0]=1;
+        }
+        
+        for(int indx=1;indx<=n;indx++){
+            for(int tar=1;tar<=amount;tar++){
+                int pick=0;
+                if(coins[indx-1]<=tar){
+                    pick=dp[indx][tar-coins[indx-1]];
+                }
+
+                int notpick=dp[indx-1][tar];
+                dp[indx][tar]=pick+notpick;
+            }
+        }
+        
+        
+        return dp[n][amount];
     }
 };
