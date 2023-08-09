@@ -1,51 +1,40 @@
 class Solution {
 public:
     
-    int lcs(string s, string t)
-{
-	// return solve(s.size()-1, t.size()-1, s,t);
-
-	vector<vector<int>>dp(s.size()+1, vector<int>(t.size()+1,0));
-
-	for(int i=1;i<=s.size();i++){
-		for(int j=1;j<=t.size();j++){
-			if(s[i-1]==t[j-1]){
-				dp[i][j]= 1+dp[i-1][j-1];
-			}else{
-				dp[i][j]= 0+max(dp[i-1][j], dp[i][j-1]);
-			}
-		}
-	}
-
-	return dp[s.size()][t.size()];
-
-}
-    int LCS(string &s1, string &s2){
+    int solve(int i ,int j ,string s1, string s2){
         
+        if(i<0 || j<0){
+            // matlab koi common length hi nhi bachi hai 
+            return 0;
+        }
+        
+        
+        if(s1[i]==s2[j]){
+            return 1+solve(i-1,j-1,s1,s2);
+        }else{
+            return max(solve(i-1,j,s1,s2),solve(i,j-1,s1,s2));
+        }
+    }
+    int longestPalindromeSubseq(string s1) {
+        
+        string s2=s1;
+        reverse(s1.begin(),s1.end());
         int n=s1.size();
-        int m=s2.size();
         
-        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        
+        vector<vector<int>>dp(n+1,vector<int>(n+1,0));
+        // return solve(s.size()-1,s.size()-1,s,str);
         
         for(int i=1;i<=n;i++){
-            for(int j=1;j<=m;j++){
-                
+            for(int j=1;j<=n;j++){
                 if(s1[i-1]==s2[j-1]){
-                    dp[i][j]=1+dp[i-1][j-1];
+                    dp[i][j]= 1+dp[i-1][j-1];
                 }else{
-                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                     dp[i][j]= max(dp[i-1][j],dp[i][j-1]);
                 }
             }
         }
         
-        return dp[n][m];
-        
-    }
-    int longestPalindromeSubseq(string s) {
-        
-        string s1=s;
-        reverse(s.begin(),s.end());
-        return LCS(s1,s);
-        
+        return dp[n][n];
     }
 };
