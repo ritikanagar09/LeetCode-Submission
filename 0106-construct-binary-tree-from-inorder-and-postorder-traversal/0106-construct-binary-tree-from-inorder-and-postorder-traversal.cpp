@@ -11,45 +11,30 @@
  */
 class Solution {
 public:
-      int indexOfelement(vector<int>& inorder,int x)
-    {
-        for(int i=0;i<inorder.size();i++)
-        {
-            if(inorder[i]==x)
-            {
-                return i;
-            }
-        }
-        return -1;
-    }
-    
-    
-    TreeNode*construct(vector<int>& postorder, vector<int>& inorder,int low,int high,int &i)
-    {
-
-        if(low<0 || low>high || i<0)
-        {
+    TreeNode* solve(vector<int>& preorder, vector<int>& inorder, int instart, int inEnd, int preStart, int preEnd, map<int,int>&inMap){
+        if(preStart > preEnd || instart > inEnd){
             return NULL;
         }
         
-        int index=indexOfelement(inorder,postorder[i]);
         
-        TreeNode*root=new TreeNode(inorder[index]);
-        i--;
-        root->right=construct(postorder,inorder,index+1,high,i);
-       
-        root->left=construct(postorder,inorder,low,index-1,i);
-         // cout<<"low "<<low<<" index "<<index+1<<"  high. "<<high<<" i "<<i<<endl;
+        TreeNode* root= new TreeNode(preorder[preEnd]);
+        int rootIndx=inMap[root->val];
         
+        int numLeft= rootIndx-instart;
+        
+        root->left=solve(preorder, inorder, instart, rootIndx-1, preStart, preStart+numLeft-1,inMap);
+        
+        root->right=solve(preorder, inorder, rootIndx+1, inEnd, preStart+numLeft, preEnd-1,inMap);
         
         return root;
-     
     }
-    
-    
-    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        int i=postorder.size()-1;
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& preorder) {
+         map<int,int>mpp;
         
-        return construct(postorder,inorder,0,inorder.size()-1,i);
+        for(int i=0;i<inorder.size();i++){
+            mpp[inorder[i]]=i;
+        }
+        
+        return solve(preorder, inorder,0,inorder.size()-1,0,inorder.size()-1,mpp );
     }
 };
