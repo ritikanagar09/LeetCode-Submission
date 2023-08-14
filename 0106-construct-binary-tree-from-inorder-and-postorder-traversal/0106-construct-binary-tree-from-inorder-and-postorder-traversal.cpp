@@ -11,30 +11,37 @@
  */
 class Solution {
 public:
-    TreeNode* solve(vector<int>& preorder, vector<int>& inorder, int instart, int inEnd, int preStart, int preEnd, map<int,int>&inMap){
-        if(preStart > preEnd || instart > inEnd){
-            return NULL;
-        }
+    
+    TreeNode* solve(vector<int>& inorder, vector<int>& postorder, int inst, int inend, int pst, int pend , map<int,int>&mpp){
         
         
-        TreeNode* root= new TreeNode(preorder[preEnd]);
-        int rootIndx=inMap[root->val];
+        if(inst > inend || pst > pend){return NULL;}
         
-        int numLeft= rootIndx-instart;
         
-        root->left=solve(preorder, inorder, instart, rootIndx-1, preStart, preStart+numLeft-1,inMap);
         
-        root->right=solve(preorder, inorder, rootIndx+1, inEnd, preStart+numLeft, preEnd-1,inMap);
+        TreeNode* root=new TreeNode(postorder[pend]);
+        
+        int indx = mpp[root->val];
+        
+        int numleft= indx-inst; // number of nodes of left subtree
+        
+        root->left=solve(inorder, postorder,inst, indx-1,pst, pst+numleft-1, mpp );
+        
+        root->right=solve(inorder, postorder,indx+1, inend,pst+numleft,pend-1, mpp );
         
         return root;
-    }
-    TreeNode* buildTree(vector<int>& inorder, vector<int>& preorder) {
-         map<int,int>mpp;
         
-        for(int i=0;i<inorder.size();i++){
+        
+    }
+        
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        
+        int n=inorder.size();
+        map<int,int>mpp;
+        for(int i=0;i<n;i++){
             mpp[inorder[i]]=i;
         }
         
-        return solve(preorder, inorder,0,inorder.size()-1,0,inorder.size()-1,mpp );
+        return solve(inorder, postorder,0,n-1,0,n-1,mpp);
     }
 };
