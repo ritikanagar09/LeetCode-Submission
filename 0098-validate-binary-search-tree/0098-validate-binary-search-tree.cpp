@@ -11,26 +11,24 @@
  */
 class Solution {
 public:
-    bool isBST(TreeNode* root, TreeNode* mini, TreeNode* maxi){
+    bool solve(TreeNode* root, long long mini, long long maxi){
+        
         if(root==NULL){
-            return true;// we are asumming ki NULL node humesha satify karegi condition
+            return true;
         }
         
-        if((mini && root->val<=mini->val) || (maxi&& root->val>=maxi->val)){
-            return false;
-        }
-        bool left=isBST(root->left,mini,root);
-        bool right=isBST(root->right,root,maxi);
-        return left && right;
-            // agar uppar vaali condition hi fail hp gyi toh return false;
+        bool cond1= (root->val > mini && root->val < maxi);
+        
+        bool l=solve(root->left,mini,root->val);
+        bool r=solve(root->right,root->val,maxi);
+        
+        return (cond1&&l&&r);
         
     }
     bool isValidBST(TreeNode* root) {
-        TreeNode* mini=NULL;
-        TreeNode* maxi=NULL;//THINGS WERE NOT GETTING HANDLED WITH INT_MIN AND INT_MAx
-        if(root->left==NULL && root->right==NULL){
-            return true;//single node always satisy
-        }
-        return isBST(root,mini,maxi);
+        
+        long long mini=INT_MIN;
+        long long maxi=INT_MAX;
+        return solve(root, mini-10,maxi+10);
     }
 };
