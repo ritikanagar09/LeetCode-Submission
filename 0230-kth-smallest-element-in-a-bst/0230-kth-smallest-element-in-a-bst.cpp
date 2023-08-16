@@ -9,28 +9,51 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+
+class BSTIterator {
+public:
+    stack<TreeNode*>st;
+    
+    BSTIterator(TreeNode* root) {
+        pushAll(root);
+    }
+    
+    void pushAll(TreeNode* root){
+        
+        // go in extreame left and push all left node on the way
+        while(root != NULL){
+            st.push(root);
+            root=root->left;
+        }
+    }
+    
+    int next() {
+            TreeNode* node=st.top();st.pop();
+            pushAll(node->right);
+            return node->val;
+    
+    }
+    
+    bool hasNext() {
+        
+        return !st.empty();
+    }
+};
 class Solution {
 public:
-    
-    void solve(TreeNode* root, int &k, int &ans){
-        
-        if(root==NULL){
-            return;
-        }
-        
-        solve(root->left,k,ans);
-        k--;
-        if(k==0){
-            ans= root->val;
-        }
-        
-        solve(root->right,k,ans);
-    }
     int kthSmallest(TreeNode* root, int k) {
-        int ans=0;
         
-        solve(root,k,ans);
+        BSTIterator l(root);
         
-        return ans;
+        int i=l.next();
+        
+        while(k>1){
+            i=l.next();
+            k--;
+        }
+        
+        return i;
+        
     }
 };
