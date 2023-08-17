@@ -11,39 +11,36 @@
  */
 class Solution {
 public:
-    
-    void solve(TreeNode* root, map<int,int>&mpp){
+    vector<int>res;
+    int maxfreq=0,currfreq=0,precursor=INT_MIN;
+    void solve(TreeNode*root){
         if(root==NULL){
             return;
         }
         
-        mpp[root->val]++;
+        solve(root->left);
         
-        solve(root->left,mpp);
-        solve(root->right,mpp);
+        if(root->val==precursor)
+            currfreq++;
+        else 
+            currfreq=1;
+        
+        if(currfreq > maxfreq){
+            res.clear();
+            res.push_back(root->val);
+            maxfreq=currfreq;
+        }else if(currfreq==maxfreq){
+            res.push_back(root->val);
+        }
+        
+        precursor=root->val;
+        
+        
+        solve(root->right);
     }
     vector<int> findMode(TreeNode* root) {
-        vector<int>ans;
-        map<int, int>mpp;
         
-        
-        solve(root,mpp);
-        
-        int maxi=0;
-        
-        for(auto it:mpp){
-            maxi=max(maxi,it.second);
-        }
-        
-        for(auto it:mpp){
-            if(it.second==maxi){
-                ans.push_back(it.first);
-            }
-        }
-        
-        return ans;
-        
-        
-        
+        solve(root);
+        return res;
     }
 };
