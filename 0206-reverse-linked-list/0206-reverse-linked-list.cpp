@@ -15,17 +15,10 @@ public:
             return head;
         }
         
-        ListNode* prev= NULL;
-        ListNode* curr=head;
-        ListNode* next=head->next;
         
-        while(curr!=NULL){
-            next=curr->next;
-            curr->next=prev;
-            prev=curr;
-            curr=next;     
-        }
-        
-        return prev;
+        ListNode* chotahead=reverseList(head->next);
+        head->next->next=head;
+        head->next=NULL;
+        return chotahead;
     }
 };
