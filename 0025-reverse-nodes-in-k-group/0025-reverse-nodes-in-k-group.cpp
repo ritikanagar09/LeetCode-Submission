@@ -11,45 +11,40 @@
 class Solution {
 public:
     ListNode* reverseKGroup(ListNode* head, int k) {
-//         if(head==NULL || head->next==NULL){
-//             return head;
-//         }
-        
-        // pehle hi node ki count measure kr le 
+        if(!head || !head->next){
+            return head;
+        }
         
         int x=k;
-        ListNode* temp=head;
-        while(x >0 && temp!=NULL){
-            temp=temp->next;
+        
+        ListNode* tmp=head;
+        
+        while(x>0 && tmp!=NULL){
+            tmp=tmp->next;
             x--;
         }
         
-        
-        
         if(x==0){
+            
             ListNode* prev=NULL;
-            ListNode* curr= head;
-            ListNode*next=curr->next;
-
+            ListNode* curr=head;
+            ListNode* next=curr->next;
+            
             int n=k;
-
-            while(n--){
+            while(n > 0 && curr != NULL){
                 next=curr->next;
                 curr->next=prev;
                 prev=curr;
                 curr=next;
+                n--;
             }
-
-            // paagal aurat ..ynhar head bhi oth tha ek p
-
+            
             head->next=reverseKGroup(curr,k);
-
             return prev;
         }else{
             return head;
         }
-        
-        
+         
         
     }
 };
