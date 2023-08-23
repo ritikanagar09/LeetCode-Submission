@@ -29,7 +29,7 @@ public:
         
         int ans1 =0;
         int y = 0;
-        for(int i =0; i<=n ; i++){
+        for(int i =1; i<=n ; i++){
             int k = pow(i,2);
             string kk = to_string(k);
             int ans =0;
