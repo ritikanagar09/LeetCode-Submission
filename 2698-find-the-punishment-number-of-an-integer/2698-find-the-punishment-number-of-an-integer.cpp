@@ -5,20 +5,14 @@ public:
         if(kk.size()==0){
             return ans==a;
         }
-        
-        if(ans > a){
-            return false;
-        }
         for(int i =0; i<kk.size() ; i++){
                 string x = kk.substr(0,i+1);
                 string ss = kk.substr(i+1);
                 int k=stoi(x);
-                 
-                  bool t = f(ss,a,ans+k);
-                  // ans -= stoi(x);
-                  if(t){
-                        return true;
-                    }    
+                 bool t = f(ss,a,ans+k);
+                 if(t){
+                    return true;
+                }    
         }
         return false;
     }
