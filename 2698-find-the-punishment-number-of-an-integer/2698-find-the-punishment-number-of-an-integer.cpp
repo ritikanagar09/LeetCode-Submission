@@ -34,9 +34,9 @@ public:
             string kk = to_string(k);
             int ans =0;
             y =i;
-            if(kk=="100" || kk=="10000" || kk== "10000"){
-                y=1;
-            }
+            // if(kk=="100" || kk=="10000" || kk== "10000"){
+            //     y=1;
+            // }
          bool t = f(kk,y,0);
             //cout<<t<<"//"<<kk << i <<endl;
             if(t){
