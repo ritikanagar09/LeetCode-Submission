@@ -2,24 +2,22 @@ class Solution {
 public:
    // 12 3456 
     bool f(string kk,int a,int ans){
-        if(kk.size()==0  && ans == a){
-            return true;
-        }
-        else if( kk.size()==0){
-            return false;
+        if(kk.size()==0){
+            return ans==a;
         }
         
+        if(ans > a){
+            return false;
+        }
         for(int i =0; i<kk.size() ; i++){
-             string x = kk.substr(0,i+1);
-             // if(x.size()>0){
+                string x = kk.substr(0,i+1);
                  ans += stoi(x);
                  string ss = kk.substr(i+1);
                   bool t = f(ss,a,ans);
                   ans -= stoi(x);
                   if(t==true){
-                   return true;
-                // }
-        }    
+                        return true;
+                    }    
         }
         return false;
     }
