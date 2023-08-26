@@ -28,8 +28,8 @@ public:
         
         int indx=0;
         
-        // string str=s;
-        vector<char>str(n);
+        string str=s;
+        // vector<char>str(n);
         while(!pq.empty()){
             
             auto it=pq.top();
@@ -42,8 +42,8 @@ public:
                 str[indx]=k;
                 indx+=2;
                 num--;
-                cout<<k<<" "<<num<<endl;
-                cout<<indx<<endl;
+                // cout<<k<<" "<<num<<endl;
+                // cout<<indx<<endl;
                 if(indx>=n){
                     indx=1;
                 }
@@ -52,12 +52,12 @@ public:
             
         }
         
-        string ans="";
+//         string ans="";
         
-        for(auto i:str){
-            ans+=i;
-        }
+//         for(auto i:str){
+//             ans+=i;
+//         }
         
-        return ans;
+        return str;
     }
 };
