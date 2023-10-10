@@ -20,7 +20,9 @@ class Solution
         int j=n-1;
         
         while(i<=j){
-            swap(str[i],str[j]);
+            char ch=str[i];
+            str[i]=str[j];
+            str[j]=ch;
             i++;
             j--;
         }
