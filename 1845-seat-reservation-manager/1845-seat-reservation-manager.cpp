@@ -2,18 +2,25 @@ class SeatManager {
 public:
     // we will use pq for unreserved seats 
     priority_queue <int,vector<int>,greater<int>>pq;
+    int seat_marker=1;
     SeatManager(int n) {
         
         // ishse bhi bacha jaa skta h kya 
-        for(int i=1;i<=n;i++){
-            pq.push(i);
-        }
+        
     }
     
     int reserve() {
-        int top=pq.top();
-        pq.pop();
-        return top; // this seat have been reserved 
+        
+        if(!pq.empty()){
+            int top=pq.top();
+            pq.pop();
+            return top; // this seat have been reserved 
+        }
+        
+        int seat=seat_marker;
+        seat_marker++;
+        return seat;
+        
     }
     
     void unreserve(int seatNumber) {
