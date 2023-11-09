@@ -1,76 +1,69 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        
-        queue<pair<int,int>>q;
         int n=grid.size();
         int m=grid[0].size();
         
-        bool flag=false;
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j]!=0){
-                    flag=true;
-                }
-            }
-        }
-        
-        if(!flag){
-            return 0;
-        }
-        
+        int cnt=0; queue<pair<int,int>>q;
         vector<vector<int>>vis=grid;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
+                
+                if(grid[i][j]!=0){
+                    cnt++; // we want to cal only 1 and 2 
+                }
                 if(grid[i][j]==2){
                     q.push({i,j});
-                    // back gya ye bhi toh visit ho gye h naa
-                    vis[i][j]=2;
-                }else{
-                    vis[i][j]=0;
+                    
                 }
             }
         }
         
-        
-        int cnt=-1;
+        int time=0; 
+        int tot=0; 
         while(!q.empty()){
-            int size=q.size();
-            
+            // timely I'll be using the queue 
+            // time++; 
+            int size =q.size();
+            tot+=size;
             while(size--){
-                pair<int,int> front=q.front();
-                int x=front.first;
-                int y=front.second;
+                int x=q.front().first;
+                int y=q.front().second; 
                 q.pop();
-                // vis[x][y]=-1;
-                int dx[]={1,-1,0,0};
-                int dy[]={0,0,1,-1};
                 
+                // now I'll be visiting the new node or adjacent nodes from here 
+                int dx[]={-1,1,0,0};
+                int dy[]={0,0,-1,1};
                 for(int i=0;i<4;i++){
                     int nx=x+dx[i];
                     int ny=y+dy[i];
-                    
-                    if(nx>=0 && nx<n && ny>=0 && ny<m && 
-                      grid[nx][ny]==1 && vis[nx][ny]!=2){
-                        vis[nx][ny]=2;
+                     // ynha par we are just claming ki it has oriogonal colr and it is yet not be 
+                    // the sam ecolor it has achieved 
+                    if(nx>=0 && ny>=0 && nx<n & ny<m && grid[nx][ny]==1 && vis[nx][ny]!=2){
                         q.push({nx,ny});
+                        vis[nx][ny]=2;
                     }
                 }
-                
-                
             }
             
-            cnt++;
-        }
-        
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(vis[i][j]!=2 && grid[i][j]==1){
-                    return -1;
-                }
+            if(!q.empty()){
+                time++;
             }
         }
         
-        return cnt;
+        
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<m;j++){
+        //         if(vis[i][j]==1){
+        //             return -1;
+        //         }
+        //     }
+        // }
+        
+        if(tot !=cnt){
+            return -1;
+        }
+        
+        return time;
     }
 };
