@@ -4,46 +4,48 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution
-{   
-    private:
-    
-    void dfs(int node, vector<int> adj[], stack<int>&st, vector<int>&vis){
-        vis[node]=1;
-        
-        
-        for(auto adjnode:adj[node]){
-            if(!vis[adjnode]){
-                dfs(adjnode,adj,st,vis);
-            }
-        }
-        
-        st.push(node);
-    }
+{
 	public:
 	//Function to return list containing vertices in Topological order. 
 	vector<int> topoSort(int V, vector<int> adj[]) 
-	{   
-	    
-	    vector<int>vis(V,0);
-	    
-	    stack<int>st;
+	{
+	    vector<int>indeg(V,0);
+	    queue<int>q;
 	    for(int i=0;i<V;i++){
 	        
-	        if(!vis[i]){
-	            dfs(i,adj,st,vis);
+	       //  har ek node k liye ushe ke indeg calculate kar vayenge 
+	       for(auto it:adj[i]){
+	           indeg[it]++;
+	       }
+	    }
+	    
+	    // now push the elem having indeg 0;
+	    
+	    for(int i=0;i<V;i++){
+	        if(indeg[i]==0){
+	            q.push(i);
 	        }
 	    }
 	    
-	    vector<int>ans;
 	    
-	    while(!st.empty()){
-	        int top=st.top();
-	        ans.push_back(top);
-	        st.pop();
+	    vector<int>ans;
+	    while(!q.empty()){
+	        int node=q.front();
+	         q.pop();
+	         ans.push_back(node); 
+	         
+	         for(auto it : adj[node]){
+	             indeg[it]--;
+	             if(indeg[it]==0 ){
+	                 q.push(it);
+	             }
+	         }
 	    }
 	    
 	    return ans;
-	}
+	    
+	    
+    	}
 };
 
 //{ Driver Code Starts.
