@@ -20,7 +20,7 @@ public:
     int findUPar(int node) {
         if(node == parent[node])
             return node; 
-        return parent[node] = findUPar(parent[node]); 
+        return parent[node] = findUPar(parent[node]); // steps for compression 
     }
 
     void unionByRank(int u, int v) {
@@ -31,6 +31,8 @@ public:
             parent[ulp_u] = ulp_v; 
         }
         else if(rank[ulp_v] < rank[ulp_u]) {
+            // v has lesser ranking 
+            // that's why parent of v becomes u 
             parent[ulp_v] = ulp_u; 
         }
         else {
