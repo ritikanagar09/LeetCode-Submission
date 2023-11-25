@@ -1,24 +1,29 @@
 class Solution {
 public:
     vector<int> findDiagonalOrder(vector<vector<int>>& nums) {
-        int m = nums.size();
-		vector<int> ans;
-        queue<pair<int, int>> q;
-        q.push({0,0}); // first row, first cell
-		
-		// BFS
-        while (!q.empty()) {
-            pair<int, int> p = q.front();
-            q.pop();
-            ans.push_back(nums[p.first][p.second]);
-			
-			// insert the element below, if in first column
-            if (p.second == 0 && p.first+1 < m) q.push({p.first+1, p.second});
-			
-			// insert the right neighbour, if exists
-            if (p.second+1 < nums[p.first].size())
-                q.push({p.first, p.second+1});
+        vector<int>ans;
+        int n=nums.size();
+        // priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
+        priority_queue<pair<int,pair<int,int>>>pq;
+        for(int i=0;i<n;i++){
+            int size=nums[i].size();
+            for(int j=0;j<size;j++){
+                int sum=i+j;
+                sum=n-sum;
+                int row=i;
+                int val=nums[i][j];
+                pq.push({sum,{row,val}});
+            }
         }
+        
+        while(!pq.empty()){
+            int val=pq.top().second.second;
+            pq.pop();
+            ans.push_back(val);
+        }
+        
         return ans;
+        
+        
     }
 };
