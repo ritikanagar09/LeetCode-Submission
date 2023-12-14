@@ -11,29 +11,32 @@ public:
         
         
         for(int i=0;i<n;i++){
-            int sum =0 ;
             for(int j=0 ;j<m;j++){
-                sum+=mat[i][j];
+                
+                if(mat[i][j]){
+                    sumR[i]++; 
+                    sumC[j]++;
+                }
+               
             }
             
-            sumR[i]=sum;
+            
         }
         
-        for(int j=0;j<m;j++){
-            int sum =0 ;
-            for(int i=0 ;i<n;i++){
-                sum+=mat[i][j];
-            }
+//         for(int j=0;j<m;j++){
+//             int sum =0 ;
+//             for(int i=0 ;i<n;i++){
+//                 sum+=mat[i][j];
+//             }
             
-            sumC[j]=sum;
-        }
+//             sumC[j]=sum;
+//         }
         
         for(int i=0 ;i<n;i++){
             for(int j=0 ;j <m;j++){
                 
                 if(mat[i][j]==1 && sumR[i]==1 && sumC[j]==1){
                     cnt++;
-                    cout<<i<<" "<<j<<" "<<sumR[i]<< " "<< sumC[j]<<endl;
                 }
             }
         }
