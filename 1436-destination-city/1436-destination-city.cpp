@@ -4,23 +4,28 @@ public:
         int n=paths.size();
         
         map<string,int>mppA;
-        map<string,int>mppD;
+        // map<string,int>mppD;
         
         for(int i=0;i<n;i++){
             string a=paths[i][0]; 
             string b=paths[i][1];
             mppA[a]++;
-            mppD[b]++;
+            
+           
         }
         
         
-        string ans;
-        for(auto it:mppD){
-            if(mppA.find(it.first)==mppA.end()){
-                return it.first;
+        for(int i=0 ;i<n;i++){
+            string b=paths[i][1];
+            if(mppA[b]==0){
+                return b;
             }
+            
         }
         
-        return ans;
+        return " ";
+        
+        
+       
     }
 };
