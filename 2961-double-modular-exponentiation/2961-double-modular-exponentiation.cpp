@@ -10,7 +10,7 @@ public:
             b = variable[1];
             c = variable[2];
             m = variable[3];
-            a = a % 10;
+            // a = a % 10;
             res = 1;
             for (int j = 0; j < b ; ++j) {
                 res = (res * a) % 10;
@@ -19,7 +19,7 @@ public:
             res = 1;
             for (int j = 0; j < c ; ++j) {
                 res = (res * tmp) % m;
-             }
+            }
             if (res == target) {
                 ans.push_back(i);
             }
