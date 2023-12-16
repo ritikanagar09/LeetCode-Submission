@@ -15,7 +15,7 @@ public:
             for (int j = 0; j < b ; ++j) {
                 res = (res * a) % 10;
              }
-            tmp = res % m;
+            tmp = res;
             res = 1;
             for (int j = 0; j < c ; ++j) {
                 res = (res * tmp) % m;
