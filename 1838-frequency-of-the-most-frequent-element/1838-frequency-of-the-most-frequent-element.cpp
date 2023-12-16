@@ -26,7 +26,7 @@ public:
             int high=i;
             int pointer=-1;
             while(low <= high){
-                long long int mid=(low+high)/2; // target value
+                int mid=(low+high)/2; // target value
                 long long int window=i-mid+1;// 13 is included
 
                 long long int exp_sum=window*nums[i];
