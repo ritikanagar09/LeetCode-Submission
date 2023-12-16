@@ -14,43 +14,42 @@ public:
         }
         
         
-        
-        
-        long long int maxf=1;
-        for(int i=n-1;i>=0;i--){
-            // int f=1;
-            int nk=k;
-            
-            
             int low=0;
-            int high=i;
-            int pointer=-1;
-            while(low <= high){
-                int mid=(low+high)/2; // target value
-                long long int window=i-mid+1;// 13 is included
-
-                long long int exp_sum=window*nums[i];
-                long long int curr_sum=presum[i] -presum[mid]+nums[mid];// if include start from i 
+            int high=1;// sabse choti window se start krvana hai 
+            long long int maxf=1;
+            
+            while(high < n){ // target ele is low 
+                long long int window=high-low+1;// 13 is included
+                int pointer=-1;
+                long long int exp_sum=window*nums[high];
+                long long int curr_sum=presum[high]-presum[low]+nums[low];// if include start from i 
                 // if excudes start from i-1
 
                 long long int diff=exp_sum-curr_sum;
 
                 if(diff <= k){
-                    pointer=mid;
-                    high=mid-1;
+                    pointer=low;
                 }else{
-                    low=mid+1;
+                    low++;// window is not valid for this case eg 1 is not valid for 8
                 }
+                
+                // cout<<"//"<<endl;
+                // cout<<low<<" "<<high<<endl;
+                
+                if(pointer != -1){ 
+                    long long int range=high-pointer+1;
+            
+                    maxf=max(maxf,range);
+                    high++;
+                }
+                
+                
             }
             
             
-            long long int range=i-pointer+1;
-            
-            maxf=max(maxf,range);
             
             
-        }
-        
+     
         
         return maxf;
             
