@@ -1,32 +1,34 @@
 class Solution {
 public:
-    vector<int> successfulPairs(vector<int>& spells, vector<int>& potions, long long success) {
-        long long n=spells.size();
-        long long m=potions.size();
-        vector<int>ans;
+    vector<int> successfulPairs(vector<int>& s, vector<int>& p, long long k) {
+        int n=s.size();
+        int m=p.size();
         
-        sort(potions.begin(),potions.end());
+        sort(p.begin(),p.end());
         
+        
+        vector<int>ans(n);
         for(int i=0;i<n;i++){
-            // int cnt=0;
-            // int a=spells[i];
-            long long low=0;
-            long long end=m-1;;
+            int num=s[i];
             
-            while(low<=end){
-                int mid=(low+end)/2;
-                long long pr=(long long) ((long long)potions[mid]*(long long)spells[i]);
+            int l=0;
+            int h=m-1;
+            
+            while(l<=h){
+                int mid=(l+h)/2;
                 
-                if(pr>=success){
-                    end=mid-1;
+                long long int prod=(long long)num* (long long)p[mid];
+                if(prod >=k){
+                    h=mid-1;
                 }else{
-                    low=mid+1;
+                    l=mid+1;
                 }
             }
-            // cout<<low<<endl;
-            ans.push_back(m-low);
+            
+            int size=m-l;
+            ans[i]=size;
+            
         }
-        
         
         return ans;
     }
