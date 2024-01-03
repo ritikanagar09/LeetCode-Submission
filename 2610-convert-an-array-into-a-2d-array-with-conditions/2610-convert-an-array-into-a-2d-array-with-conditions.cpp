@@ -1,22 +1,30 @@
 class Solution {
 public:
     vector<vector<int>> findMatrix(vector<int>& nums) {
-        int n = nums.size();
-        map<int,int>mp;
-        int maxi =0;
-        for(int i =0; i<n ; i++){
-            mp[nums[i]]++;
-            maxi = max( maxi , mp[nums[i]]);
+        int n=nums.size();
+        
+        map<int,int>mpp;
+        
+        for(int i=0;i<n;i++){
+            mpp[nums[i]]++;
         }
-        vector<vector<int>> ans(maxi);
-        int a =0;
-        for(auto i : mp){
-            int k = i.second;
-            //cout<<k<<" "<<i.first<<endl;
-            for(int j =0; j<k ; j++){
-                ans[j].push_back(i.first);
+        
+        int maxi=0;
+        for(auto it:mpp){
+            maxi=max(maxi,it.second);
+        }
+        
+        vector<vector<int>>ans(maxi);
+        
+        for(auto it:mpp){
+            int m=it.second;
+            for(int i=0;i<m;i++){
+                ans[i].push_back(it.first);
             }
         }
+        
         return ans;
+        
+        
     }
 };
