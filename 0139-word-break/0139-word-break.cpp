@@ -1,20 +1,20 @@
 class Solution {
 public:
     
-    bool solve(int indx, string s, map<string,int>mpp,vector<int>&dp){
-        
-        if(indx >=s.size()){
+    bool solve(int indx, string s, map<string,int>&mpp, int &n, vector<int>&dp){
+        if(indx >=n){
             return true;
         }
         
-        if(dp[indx]!=-1){
+        if(dp[indx] != -1){
             return dp[indx];
         }
-        for(int i=indx;i<s.size();i++){
+        
+        for(int i=indx;i<n;i++){
             string str=s.substr(indx,i-indx+1);
-            if(mpp.find(str)!=mpp.end()){
-                if(solve(i+1,s,mpp,dp)){
-                    return dp[i]=true;
+            if(mpp.find(str) != mpp.end()){
+                if(solve(i+1,s,mpp,n,dp)){
+                    return dp[indx]=true;
                 }
             }
         }
@@ -22,12 +22,13 @@ public:
         return dp[indx]=false;
     }
     bool wordBreak(string s, vector<string>& wordDict) {
+        int n=s.size();
         map<string,int>mpp;
-        int n=wordDict.size();
-        for(auto str:wordDict){
-            mpp[str]=1;
+        
+        for(int i=0;i<wordDict.size();i++){
+            mpp[wordDict[i]]++;
         }
-        vector<int>dp(301,-1);
-        return solve(0,s,mpp,dp);
+        vector<int>dp(n,-1);
+        return solve(0,s,mpp,n,dp);
     }
 };
