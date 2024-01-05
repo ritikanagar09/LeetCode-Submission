@@ -11,21 +11,22 @@ public:
         int i=0;
         int j=0;
         while(i<n && j<n){
-            
-            if(mpp.find(nums[j]) == mpp.end()){
-                len+=nums[j];
-                mpp[nums[j]]=1;
-                j++;
-            }else{
-                
-                maxi=max(maxi,len);
-                while(mpp.find(nums[j]) != mpp.end()){
+             while(mpp.find(nums[j]) != mpp.end()){
                     mpp.erase(nums[i]);
                     len-=nums[i];
                     i++;
                  }
+            
+            
+                len+=nums[j];
+                mpp[nums[j]]=1;
+                j++;
+            
                 
-            }
+                maxi=max(maxi,len);
+               
+                
+            
             // cout<<i<<" "<<j<<endl;
         }
             
