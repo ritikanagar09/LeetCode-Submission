@@ -1,33 +1,27 @@
 class Solution {
 public:
     vector<int> findErrorNums(vector<int>& nums) {
-        map<int,int>mpp;
+        sort(nums.begin(),nums.end());
         int n=nums.size();
-        
-        vector<int>v(n,-1);//assume koi nhi h
-        for(int i=0;i<nums.size();i++){
-            mpp[nums[i]]++;
-            v[nums[i]-1]=1;
-        }
-        
-        
         vector<int>ans;
         
-        for(auto i:mpp){
-            if(i.second==2){
-                ans.push_back(i.first);
-            }
-        }
+        vector<int>vis(n+1,0);
         
         for(int i=0;i<n;i++){
-            if(v[i]==-1){
-                ans.push_back(i+1);
+            if(vis[nums[i]]==1){
+                ans.push_back(nums[i]);
+            }
+            
+            vis[nums[i]]=1;
+        }
+        
+        for(int i=1;i<=n;i++){
+            if(vis[i]==0){
+                ans.push_back(i);
             }
         }
         
-        //sort(ans.begin(),ans.end());
         return ans;
-        
-        
+        // [2,3,3,4,5,6];
     }
 };
