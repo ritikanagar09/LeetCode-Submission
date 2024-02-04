@@ -1,70 +1,40 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        map<char,int>m, mf;
+        int n = s.length();
+        map<char, int> mp;
         
-        for(int i=0;i<t.length();i++){
-            mf[t[i]]++;
+        for(char &ch : t) {
+            mp[ch]++;
         }
-        int n=s.length();
-        int i=0;
-        int j=0;
-        int min= INT_MAX;
-        string ans="";
         
-// AAAABC M   ABC Mf
-        
-        while(i<n){
-            bool flag=true;
-            if(j<n){
-                m[s[j]]++;
-            }
+        int requiredCount = t.length();
+        int i = 0, j  = 0;
+        int minStart  = 0;
+        int minWindow = INT_MAX;
+        while(j < n) {
+            char ch_j = s[j];
+            if(mp[ch_j] > 0)
+                requiredCount--;
             
-            for(auto i:mf){
-                
-                char ch=i.first;
-                if(mf[ch]>m[ch]){
-                    flag=false;
-                    break;
+            mp[ch_j]--;
+            
+            while(requiredCount == 0) { //try to shrink the window
+                if(minWindow > j-i+1) {
+                    minWindow = j-i+1;
+                    minStart  = i;
                 }
-            }
-            
-            
-            // minimize
-            while(flag==true && i<n){
-                    if(j-i+1<min){
-                        min=j-i+1;
-                        ans=s.substr(i,j-i+1);
-                    }
-
-
-                    m[s[i]]--;
-                    i++;
-
-                    for(auto i:mf){
-
-                        char ch=i.first;
-                        if(mf[ch]>m[ch]){
-                            flag=false;
-                            break;
-                         }
-                  }
                 
-                
-            }
-            
-            
-            if(j<n){
-                j++;
-            }else{
-                m[s[i]]--;
+                char ch_i = s[i];
+                mp[ch_i]++;
+                if(mp[ch_i] > 0)
+                    requiredCount++;
                 i++;
             }
             
-            
-            
+            j++; //Don't ever forget this :-)
         }
         
-        return ans;
+        return minWindow == INT_MAX ? "" : s.substr(minStart, minWindow);
     }
 };
