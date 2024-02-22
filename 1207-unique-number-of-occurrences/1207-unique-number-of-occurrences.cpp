@@ -9,6 +9,9 @@ public:
             mpp[arr[i]]++;
         }
         
+        // here the number of elemts there are 
+        // we are required to have that much 
+        // distinct elemnts only 
         map<int,int>mpp1;
         
         for(auto it:mpp){
