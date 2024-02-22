@@ -1,20 +1,36 @@
 class Solution {
 public:
     int findJudge(int n, vector<vector<int>>& trust) {
-        // vector<datatype> vect -> here datatype is pair 
-        vector<pair<int,int>> arr(n+1, {0,0});// N+1 ,we declare the size of vector 
+        vector<int>v(n+1,0);
         
-        for(int i=0 ;i<trust.size();++i){
+        for(auto it:trust){
+            int a=it[0];
+            int b=it[1];
+            v[a]=1;
+        }
+        
+        int pot=-1;
+        
+        for(int i=1;i<=n;i++){
+            if(v[i]==0){
+                pot=i;
+            }
+        }
+        
+        int cnt=0;
+        
+        for(auto it:trust){
+            int a=it[0];
+            int b=it[1];
             
-            arr[trust[i][0]].first +=1;// first postion sbki 
-            arr[trust[i][1]].second +=1;
+            if(b==pot){
+                cnt++;
+            }
             
         }
         
-        for(int j=1;j <=n;++j){
-            if (arr[j].first==0 && arr[j].second==n-1){
-                return j;
-            }
+        if(cnt==n-1){
+            return pot;
         }
         
         return -1;
