@@ -10,29 +10,30 @@
  */
 class Solution {
 public:
-    int len(ListNode*  head){
+    ListNode* middleNode(ListNode* head) {
+        
+        if(head==NULL){
+            return head;
+        }
+        int n=0;
+        
         ListNode* temp=head;
-        int cnt=0;
-        while(temp!=NULL){
-            cnt++;
+        
+        while(temp != NULL){
             temp=temp->next;
+            n++;
         }
         
-        return cnt;
-    }
-    ListNode* middleNode(ListNode* head) {
-        int mid=(len(head)/2)+1;
-        cout<<len(head)<<endl;
-        int cnt=1;
-        cout<<mid<<endl;
-        ListNode* temp=head;
-        while(cnt<mid){
-           
+        int cnt=0;
+        
+        temp=head;
+        n=n/2;
+        cout<<n<<endl;
+        while(temp!=NULL && cnt < n){
             temp=temp->next;
             cnt++;
         }
-        cout<<temp->val<<endl;
-        head=temp;
-        return head;
+        
+        return temp;
     }
 };
