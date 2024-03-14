@@ -1,30 +1,23 @@
 class Solution {
 public:
-    
-    int solve(vector<int>& nums, int goal){
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
         int n=nums.size();
         
+        map<int,int>mpp; // sum, count
         
+        int curr_sum=0;
+        mpp[0]=1;
         int cnt=0;
-        int l=0;
-        int r=0;
-        
-        int sum=0;
-        while( r < n){
+        for(int i=0;i<n;i++){
+            curr_sum+=nums[i];
+            if(mpp.find(curr_sum - goal) != mpp.end()){
+                cnt+= mpp[curr_sum - goal];
+            }
             
-            sum+=nums[r];
-            while(l <=r && sum > goal)
-                    sum-=nums[l++];
-                   
-            cnt+=r-l+1;
-            
-            r++;
+            mpp[curr_sum]++;
             
         }
         
         return cnt;
-    }
-    int numSubarraysWithSum(vector<int>& nums, int goal) {
-        return solve(nums,goal)-solve(nums,goal-1);
     }
 };
