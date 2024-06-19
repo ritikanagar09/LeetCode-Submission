@@ -1,53 +1,50 @@
 class MyQueue {
 public:
-    stack<int>st1;
-    stack<int>st2;
+    
+     stack<int>s1;
+    stack<int>s2;
     MyQueue() {
-        
+       
     }
     
     void push(int x) {
-        // it is like 
-        // pehle org stack ko khali kar le 
-        // so that last elem end me aa jaye
-        while(!st1.empty()){
-            int top=st1.top();
-            st1.pop();
-            st2.push(top);
+        while(!s2.empty()){
+            s1.push(s2.top());
+            s2.pop();
         }
         
-        st1.push(x); // 
+        s1.push(x);
         
-        while(!st2.empty()){
-            int top=st2.top();
-            st2.pop();
-            st1.push(top);
+        while(!s1.empty()){
+            s2.push(s1.top());
+            s1.pop();
         }
+        
+        // actually elemts are stored in s2 
     }
     
     int pop() {
-        if(!st1.empty()){
-            int top=st1.top();
-            st1.pop();
-            return top;
+        if(!s2.empty()){
+            int x=s2.top();
+            s2.pop();
+            return x;
+            
+        }else{
+            return -1;
         }
-        
-        return -1;
     }
     
     int peek() {
-        
-        if(!st1.empty()){
-            int top=st1.top();
-            return top;
+        if(!s2.empty()){
+            return s2.top();
+        }else{
+            return 0;
         }
-        
-        return -1;
-        
     }
     
     bool empty() {
-        return st1.empty();
+        
+        return s2.empty();
     }
 };
 
